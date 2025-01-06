@@ -16,6 +16,10 @@ namespace Manager
         private float _sfxVolume => _soundEventListenrSo.SFXVolme;
         private void Awake()
         {
+            if(_soundEventListenrSo == null)
+            {
+                _soundEventListenrSo = ResourceManager.Load<SoundEventListenrSO>(ResourcePath.SO.SoundEvent);
+            }
             _sfxPlayerFactory = new GameObjectFactoryBase<SFXPlayer>(_sfxPrefab, 0, 50, transform);
             _bgmSource = ResourceManager.Instantiate(_bgmPrefab, this.transform).GetComponent<AudioSource>();
             _bgmSource.loop = true;
