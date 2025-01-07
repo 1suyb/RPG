@@ -1,12 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class test
+public class test : LoadedDataBase
 {
-     /// <summary>
-     /// 설명
-     /// </summary>
-    public int id;
      /// <summary>
      /// 설명
      /// </summary>
