@@ -1,28 +1,5 @@
 using UnityEngine;
 
-public class CharacterMoveState : CharacterGroundState
-{
-    public CharacterMoveState(CharacterStateMachine stateMachine) : base(stateMachine)
-    {
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
-    }
-}
-
-public class CharacterIdleState : CharacterGroundState
-{
-    public CharacterIdleState(CharacterStateMachine stateMachine) : base(stateMachine)
-    {
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
-    }
-}
 public class CharacterDodgeState : CharacterGroundState
 {
     private int _animHash;

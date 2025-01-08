@@ -82,7 +82,7 @@ public class CharacterBaseState : IState
 
     protected virtual void Move()
     {
-        Quaternion rotateVec = EntityController.RorateVector(LookDir);
+        Quaternion rotateVec = EntityController.RotateVector(LookDir);
         Vector3 animDir = rotateVec * MoveDir;
         StateMachine.AnimationController.SetFloat(MoveZAnimHash, animDir.z);
         StateMachine.AnimationController.SetFloat(MoveXAnimHash, animDir.x);
