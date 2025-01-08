@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class CharacterGroundState : CharacterBaseState
 {
     protected bool IsDodge
@@ -22,11 +24,11 @@ public class CharacterGroundState : CharacterBaseState
     public override void Update()
     {
         base.Update();
-        if (!IsGrounded)
+        if (IsJump)
         {
-            // Air 상태로 전이
+            StateMachine.ChangeState(StateMachine.JumpStart);
         }
-        if (IsDodge)
+        else if (IsDodge)
         {
             if((CharacterBaseState)StateMachine.CurrentState!=StateMachine.Dodge)
                 StateMachine.ChangeState(StateMachine.Dodge);

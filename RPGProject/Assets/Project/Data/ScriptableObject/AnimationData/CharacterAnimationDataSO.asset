@@ -26,3 +26,7 @@ MonoBehaviour:
     type: 2}
   <MoveZ>k__BackingField: {fileID: 11400000, guid: 439b3868738f5c645832b3d39420d79e,
     type: 2}
+  <TagJumpStart>k__BackingField: {fileID: 11400000, guid: 956f930b04b0b3047aef1ab5a272c268,
+    type: 2}
+  <TagJumpEnd>k__BackingField: {fileID: 11400000, guid: 6f1af56e0f345a5458d203524b95f185,
+    type: 2}

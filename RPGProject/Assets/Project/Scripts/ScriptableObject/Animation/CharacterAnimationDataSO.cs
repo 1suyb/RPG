@@ -10,4 +10,7 @@ public class CharacterAnimationDataSO : ScriptableObject
     [field:SerializeField] public AnimationDataSO IsDie { get; private set; }
     [field:SerializeField] public AnimationDataSO MoveX { get; private set; }
     [field:SerializeField] public AnimationDataSO MoveZ { get; private set; }
+    
+    [field:SerializeField] public AnimationDataSO TagJumpStart { get; private set; }
+    [field:SerializeField] public AnimationDataSO TagJumpEnd { get; private set; }
 }

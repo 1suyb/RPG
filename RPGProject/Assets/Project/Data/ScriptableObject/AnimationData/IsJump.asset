@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 12cc8e0b8b0e21541b387d3bee8a8b21, type: 3}
-  m_Name: IsAir
+  m_Name: IsJump
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: IsAir
-  <Tag>k__BackingField: 
-  <Hash>k__BackingField: -1859656354
+  <Name>k__BackingField: IsJump
+  <Tag>k__BackingField: JumpUp
+  <Hash>k__BackingField: 19011116

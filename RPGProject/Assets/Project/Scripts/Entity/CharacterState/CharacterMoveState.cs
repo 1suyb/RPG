@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterMoveState : CharacterGroundState
@@ -11,7 +9,6 @@ public class CharacterMoveState : CharacterGroundState
     public override void Enter()
     {
         base.Enter();
-        SpeedModifier = 1;
     }
 }
 
@@ -49,12 +46,12 @@ public class CharacterDodgeState : CharacterGroundState
 
     public override void Update()
     {
-        base.Update();
         if (StateMachine.AnimationController.IsPlayAnimation(_animTag) >= 1f ||
             StateMachine.AnimationController.IsPlayAnimation(_animTag) <= -1f)
         {
             IsDodge = false;
         }
+        base.Update();
     }
 
     public override void Exit()

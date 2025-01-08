@@ -15,6 +15,12 @@ public class CharacterBaseState : IState
         get => StateMachine.IsMove;
         set => StateMachine.IsMove = value;
     }
+
+    protected bool IsJump
+    {
+        get => StateMachine.IsJump;
+        set => StateMachine.IsJump = value;
+    }
     protected Vector3 LookDir => StateMachine.InputEventListener.LookDir;
     protected Vector3 MoveDir => StateMachine.InputEventListener.MoveDir;
     protected bool IsGrounded => StateMachine.IsGrounded;
@@ -70,7 +76,7 @@ public class CharacterBaseState : IState
     }
     protected void Jump()
     {
-        StateMachine.Controller.Jump(5f);
+        IsJump = true;
     }
     
 

@@ -7,13 +7,23 @@ public class EntityController : MonoBehaviour
 {
     [SerializeField] private CharacterController _characterController;
     [SerializeField] private float _gravity = 9.81f;
+    [SerializeField] private LayerMask groundMask;
+    [SerializeField] private float groundDistance;
     private Vector3 _dampingVelocity;
     private float _verticalSpeed;
     private Vector3 _impact;
     
     private Vector3 _physicalMove => _impact + _verticalSpeed* Vector3.up;
-    public bool IsGrounded => _characterController.isGrounded;
+    //public bool IsGrounded => _characterController.isGrounded;
     public bool IsAriUp => _verticalSpeed > 0;
+
+    public bool IsGrounded
+    {
+        get
+        {
+            return Physics.CheckSphere(this.transform.position, groundDistance, groundMask);
+        }
+    }
     
     private void Awake()
     {
@@ -23,7 +33,8 @@ public class EntityController : MonoBehaviour
 
     private void Update()
     {
-        if (_characterController.isGrounded)
+        Debug.Log(IsGrounded ? "Grounded" : "Not Grounded");
+        if(IsGrounded && _verticalSpeed < 0)
         {
             _verticalSpeed = -_gravity * Time.deltaTime;
         }
@@ -31,12 +42,13 @@ public class EntityController : MonoBehaviour
         {
             _verticalSpeed -= _gravity * Time.deltaTime;
         }
+        
         _impact = Vector3.SmoothDamp(_impact, Vector3.zero, ref _dampingVelocity, 0.1f);
     }
 
     public void Jump(float jumpForce)
     {
-        _verticalSpeed = jumpForce;
+        _verticalSpeed = jumpForce*_gravity;
     }
 
     public void AddForce(Vector3 force)
@@ -47,6 +59,7 @@ public class EntityController : MonoBehaviour
     public void Move(Vector3 dir, float speed)
     {
         Vector3 moveDir = transform.forward * dir.z + transform.right * dir.x;
+        Debug.Log((dir * speed + _physicalMove)* Time.deltaTime);
         _characterController.Move((dir * speed + _physicalMove)* Time.deltaTime);
     }
     
