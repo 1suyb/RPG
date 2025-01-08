@@ -4,7 +4,7 @@ public class CharacterJumpEndState : CharacterAirState
     private string _jumpEndAnimTag;
     public CharacterJumpEndState(CharacterStateMachine stateMachine) : base(stateMachine)
     {
-        _jumpEndAnimTag = stateMachine.AnimData.TagJumpEnd.Tag;
+        _jumpEndAnimTag = stateMachine.AnimationController.JumpEndTag;
     }
 
     public override void Enter()

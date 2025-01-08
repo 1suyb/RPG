@@ -8,8 +8,8 @@ public class CharacterDodgeState : CharacterGroundState
     
     public CharacterDodgeState(CharacterStateMachine stateMachine) : base(stateMachine)
     {
-        _animHash = StateMachine.AnimData.IsDodge.Hash;
-        _animTag = StateMachine.AnimData.IsDodge.Tag;
+        _animHash = StateMachine.AnimationController.IsDodgeHash;
+        _animTag = StateMachine.AnimationController.DodgeTag;
     }
 
     public override void Enter()

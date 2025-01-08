@@ -26,8 +26,8 @@ public class CharacterBaseState : IState
     protected bool IsGrounded => StateMachine.IsGrounded;
     protected bool IsAriUp => StateMachine.IsAriUp;
 
-    protected int MoveZAnimHash => StateMachine.AnimData.MoveZ.Hash;
-    protected int MoveXAnimHash => StateMachine.AnimData.MoveX.Hash;
+    protected int MoveZAnimHash => StateMachine.AnimationController.MoveZHash;
+    protected int MoveXAnimHash => StateMachine.AnimationController.MoveXHash;
     
     public CharacterBaseState(CharacterStateMachine stateMachine)
     {
@@ -66,13 +66,13 @@ public class CharacterBaseState : IState
     protected void StartMove()
     {
         IsMove = true;
-        StartAnimation(StateMachine.AnimData.IsMove.Hash);
+        StartAnimation(StateMachine.AnimationController.IsMoveHash);
         
     }
     protected void StopMove()
     {
         IsMove = false;
-        StopAnimation(StateMachine.AnimData.IsMove.Hash);
+        StopAnimation(StateMachine.AnimationController.IsMoveHash);
     }
     protected void Jump()
     {

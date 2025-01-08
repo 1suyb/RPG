@@ -132,6 +132,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 525523603}
+  - component: {fileID: 525523605}
+  - component: {fileID: 525523604}
+  - component: {fileID: 525523606}
+  - component: {fileID: 525523607}
   m_Layer: 0
   m_Name: GameObject (1)
   m_TagString: Untagged
@@ -155,6 +159,83 @@ Transform:
   - {fileID: 1877540907291532662}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &525523604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 525523602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee3539b05c1a17a4f820c8acbd064be9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _target: {fileID: 1759133542}
+  _attackRange: 3
+  _controller: {fileID: 525523606}
+--- !u!114 &525523605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 525523602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f950b7ad67519af4694327b6403ee7eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterController: {fileID: 0}
+  _gravity: 9.81
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 64
+  groundDistance: 0
+--- !u!114 &525523606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 525523602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d899688242ea4f54684b384362e7de8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterController: {fileID: 0}
+  _gravity: 9.81
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 64
+  groundDistance: 0
+--- !u!143 &525523607
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 525523602}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &583865672
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,10 +621,10 @@ GameObject:
   - component: {fileID: 1759133542}
   - component: {fileID: 1759133541}
   - component: {fileID: 1759133540}
+  - component: {fileID: 1759133547}
   - component: {fileID: 1759133539}
   - component: {fileID: 1759133538}
   - component: {fileID: 1759133543}
-  - component: {fileID: 1759133544}
   - component: {fileID: 1759133546}
   - component: {fileID: 1759133545}
   m_Layer: 0
@@ -566,7 +647,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Controller>k__BackingField: {fileID: 1759133539}
-  <AnimationController>k__BackingField: {fileID: 1759133544}
+  <AnimationController>k__BackingField: {fileID: 0}
   <InputEventListener>k__BackingField: {fileID: 11400000, guid: 68b985860ea24b844b6557bc596a6c34,
     type: 2}
   <AnimData>k__BackingField: {fileID: 11400000, guid: fcb402d1891c0b5489f8dd07c2565806,
@@ -605,7 +686,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <StateMachine>k__BackingField: {fileID: 1759133538}
-  <StatHandler>k__BackingField: {fileID: 0}
+  <StatHandler>k__BackingField: {fileID: 1759133546}
+  <ConditionHandler>k__BackingField: {fileID: 0}
 --- !u!143 &1759133541
 CharacterController:
   m_ObjectHideFlags: 0
@@ -665,19 +747,6 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64
---- !u!114 &1759133544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1759133537}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 537b537415e9c2e47bf24dc7728ba725, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 0}
 --- !u!114 &1759133545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -690,7 +759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad10f40c4b97465da1e87e27635e5960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _statHandler: {fileID: 1759133546}
+  _intervalTime: 1
 --- !u!114 &1759133546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -703,6 +772,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b38f6fbff274c6b97f367e872492bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1759133547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1759133537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89401b090e6d0a74eaf9c415fd165cc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 0}
+  <IsMove>k__BackingField: IsMove
+  <IsJump>k__BackingField: IsJump
+  <IsDodge>k__BackingField: IsDodge
+  <IsFall>k__BackingField: IsFall
+  <IsDie>k__BackingField: IsDie
+  <MoveX>k__BackingField: MoveX
+  <MoveZ>k__BackingField: MoveZ
+  <DodgeTag>k__BackingField: 
+  <JumpStartTag>k__BackingField: 
+  <JumpEndTag>k__BackingField: 
 --- !u!4 &1877540907291532584
 Transform:
   m_ObjectHideFlags: 0

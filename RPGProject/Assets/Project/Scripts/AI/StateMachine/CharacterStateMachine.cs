@@ -10,12 +10,9 @@ public class CharacterStateMachine : StateMachine
     
     [field:Header("Controllers")]
     [field:SerializeField] public EntityController Controller { get; private set; }
-    [field:SerializeField] public EntityAnimationController AnimationController { get; private set; }
+    [field:SerializeField] public CharacterAnimationController AnimationController { get; private set; }
     [field:SerializeField] public InputEventListenerSO InputEventListener { get; private set; }
     
-    [field:Header("AnimationData")]
-    [field:SerializeField] public CharacterAnimationDataSO AnimData { get; private set; }
-
     public CharacterGroundState Ground { get; private set; }
     public CharacterIdleState Idle { get; private set; }
     public CharacterMoveState Move { get; private set; }

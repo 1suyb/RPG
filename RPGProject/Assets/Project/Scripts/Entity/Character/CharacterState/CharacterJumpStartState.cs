@@ -4,7 +4,7 @@ public class CharacterJumpStartState : CharacterAirState
     
     public CharacterJumpStartState(CharacterStateMachine stateMachine) : base(stateMachine)
     {
-        _jumpStartAnimTag = StateMachine.AnimData.TagJumpStart.Tag;
+        _jumpStartAnimTag = StateMachine.AnimationController.JumpStartTag;
     }
 
     public override void Enter()

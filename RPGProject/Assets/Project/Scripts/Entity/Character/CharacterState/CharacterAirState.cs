@@ -3,7 +3,7 @@ public class CharacterAirState : CharacterBaseState
     protected int JumpAnimHash;
     public CharacterAirState(CharacterStateMachine stateMachine) : base(stateMachine)
     {
-        JumpAnimHash = stateMachine.AnimData.IsAir.Hash;
+        JumpAnimHash = stateMachine.AnimationController.IsJumpHash;
     }
     public override void Enter()
     {
