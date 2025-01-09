@@ -4,7 +4,7 @@ public class EntityAnimationController : MonoBehaviour
 {
     [SerializeField]private Animator _animator;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         if (_animator == null)
         {

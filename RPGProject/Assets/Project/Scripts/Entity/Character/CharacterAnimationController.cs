@@ -26,8 +26,9 @@ public class CharacterAnimationController : EntityAnimationController
     public int MoveXHash { get; private set; }
     public int MoveZHash { get; private set; }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         IsMoveHash = Animator.StringToHash(IsMove);
         IsJumpHash = Animator.StringToHash(IsJump);
         IsDodgeHash = Animator.StringToHash(IsDodge);

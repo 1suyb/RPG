@@ -10,17 +10,17 @@ public enum NodeState
     Running
 }
 
-public interface Node
+public interface BTNode
 {
     public abstract NodeState Evaluate();
 }
 
-public abstract class CompositeNode : Node
+public abstract class CompositeBtNode : BTNode
 {
-    protected List<Node> _nodes = new List<Node>();
+    protected List<BTNode> _nodes = new List<BTNode>();
     protected int _runningNodeIndex;
 
-    protected CompositeNode(List<Node> nodes)
+    protected CompositeBtNode(List<BTNode> nodes)
     {
         this._nodes = nodes;
         _runningNodeIndex = 0;
@@ -29,11 +29,11 @@ public abstract class CompositeNode : Node
     public abstract NodeState Evaluate();
 }
 
-public class ActionNode : Node
+public class ActionBtNode : BTNode
 {
     protected Func<NodeState> _action;
 
-    public ActionNode(Func<NodeState> action)
+    public ActionBtNode(Func<NodeState> action)
     {
         _action = action;
     }
@@ -45,9 +45,9 @@ public class ActionNode : Node
 }
 
 
-public class SequenceNode : CompositeNode
+public class SequenceBtNode : CompositeBtNode
 {
-    public SequenceNode(List<Node> nodes) : base(nodes)
+    public SequenceBtNode(List<BTNode> nodes) : base(nodes)
     {
     }
 
@@ -73,9 +73,9 @@ public class SequenceNode : CompositeNode
     }
 }
 
-public class SelectorNode : CompositeNode
+public class SelectorBtNode : CompositeBtNode
 {
-    public SelectorNode(List<Node> nodes) : base(nodes)
+    public SelectorBtNode(List<BTNode> nodes) : base(nodes)
     {
     }
 
@@ -100,9 +100,9 @@ public class SelectorNode : CompositeNode
     }
 }
 
-public class RandomSelectNode : CompositeNode
+public class RandomSelectBtNode : CompositeBtNode
 {
-    public RandomSelectNode(List<Node> nodes) : base(nodes)
+    public RandomSelectBtNode(List<BTNode> nodes) : base(nodes)
     {
     }
 
@@ -137,23 +137,23 @@ public class RandomSelectNode : CompositeNode
     }
 }
 
-public class RepeatDecorator : Node
+public class RepeatDecorator : BTNode
 {
     protected int _repeatCount;
-    protected Node _node;
+    protected BTNode BtNode;
     protected int _currentCount;
 
-    public RepeatDecorator(int repeatCount, Node node)
+    public RepeatDecorator(int repeatCount, BTNode btNode)
     {
         _repeatCount = repeatCount;
-        _node = node;
+        BtNode = btNode;
     }
     
     public NodeState Evaluate()
     {
         for (int i = _currentCount; i < _repeatCount; i++)
         {
-            NodeState result = _node.Evaluate();
+            NodeState result = BtNode.Evaluate();
             if (result == NodeState.Running)
             {
                 _currentCount = i;
@@ -166,33 +166,33 @@ public class RepeatDecorator : Node
     }
 }
 
-public class ConditionalDecorator : Node
+public class ConditionalDecorator : BTNode
 {
     protected Func<bool> _condition;
-    protected Node _node;
+    protected BTNode BtNode;
 
-    public ConditionalDecorator(Func<bool> condition, Node node)
+    public ConditionalDecorator(Func<bool> condition, BTNode btNode)
     {
         _condition = condition;
-        _node = node;
+        BtNode = btNode;
     } 
     public NodeState Evaluate()
     {
         if (_condition())
         {
-            return _node.Evaluate();
+            return BtNode.Evaluate();
         }
 
         return NodeState.Failure;
     }
 }
 
-public class ConditionalActionNode : Node
+public class ConditionalActionBtNode : BTNode
 {
     protected Func<bool> _condition;
     protected Func<NodeState> _action;
 
-    public ConditionalActionNode(Func<bool> condition, Func<NodeState> action)
+    public ConditionalActionBtNode(Func<bool> condition, Func<NodeState> action)
     {
         _condition = condition;
         _action = action;

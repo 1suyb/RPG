@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemyBehaviourTree : MonoBehaviour
 {
-    private Node _rootNode;
+    private BTNode _rootBtNode;
     private bool isInited = true;
     [SerializeField] protected Transform _target;
     [SerializeField] protected float _attackRange;
@@ -13,13 +13,13 @@ public class EnemyBehaviourTree : MonoBehaviour
     {
         if (isInited)
         {
-            _rootNode.Evaluate();
+            _rootBtNode.Evaluate();
         }
     }
 
     public void Awake()
     {
-        ConditionalActionNode attackNode = new ConditionalActionNode(() =>
+        ConditionalActionBtNode attackBtNode = new ConditionalActionBtNode(() =>
             {
                 return _attackRange>this.transform.Distance(_target);
             }, () =>
@@ -27,12 +27,12 @@ public class EnemyBehaviourTree : MonoBehaviour
                 Debug.Log($"Attack player{this.transform.Distance(_target)}");
                 return NodeState.Success;
             });
-        ActionNode moveNode = new ActionNode(() =>
+        ActionBtNode moveBtNode = new ActionBtNode(() =>
         {
             _controller.Toward(_target,1f);
             return NodeState.Success;
         });
-        SelectorNode selectorNode = new SelectorNode(new List<Node>() { attackNode, moveNode });
-        _rootNode = selectorNode;
+        SelectorBtNode selectorBtNode = new SelectorBtNode(new List<BTNode>() { attackBtNode, moveBtNode });
+        _rootBtNode = selectorBtNode;
     }
 }
