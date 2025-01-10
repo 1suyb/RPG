@@ -96,4 +96,16 @@ public class InputManager : MonoBehaviour, PlayerInput.IPlayerActions
     {
         _inputEventListenerSo.QuickSlot5InputEvent();
     }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+            _inputEventListenerSo.AttackInputEvent();
+    }
+
+    public void OnCombatToggle(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+            _inputEventListenerSo.CombatInputEvent();
+    }
 }

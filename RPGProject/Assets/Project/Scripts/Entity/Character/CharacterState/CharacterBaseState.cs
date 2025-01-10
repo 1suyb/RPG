@@ -2,36 +2,36 @@ using UnityEngine;
 
 public class CharacterBaseState : IState
 {
-    protected CharacterStateMachine StateMachine;
+    protected CharacterStateMachine _stateMachine;
+    protected CharacterAnimationController _animationController => _stateMachine.AnimationController;
+    
 
     protected float SpeedModifier
     {
-        get => StateMachine.SpeedModifier;
-        set => StateMachine.SpeedModifier = value;
+        get => _stateMachine.SpeedModifier;
+        set => _stateMachine.SpeedModifier = value;
     }
 
     protected bool IsMove
     {
-        get => StateMachine.IsMove;
-        set => StateMachine.IsMove = value;
+        get => _stateMachine.IsMove;
+        set => _stateMachine.IsMove = value;
     }
 
     protected bool IsJump
     {
-        get => StateMachine.IsJump;
-        set => StateMachine.IsJump = value;
+        get => _stateMachine.IsJump;
+        set => _stateMachine.IsJump = value;
     }
-    protected Vector3 LookDir => StateMachine.InputEventListener.LookDir;
-    protected Vector3 MoveDir => StateMachine.InputEventListener.MoveDir;
-    protected bool IsGrounded => StateMachine.IsGrounded;
-    protected bool IsAriUp => StateMachine.IsAriUp;
-
-    protected int MoveZAnimHash => StateMachine.AnimationController.MoveZHash;
-    protected int MoveXAnimHash => StateMachine.AnimationController.MoveXHash;
+    
+    protected Vector3 LookDir => _stateMachine.InputEventListener.LookDir;
+    protected Vector3 MoveDir => _stateMachine.InputEventListener.MoveDir;
+    protected bool IsGrounded => _stateMachine.IsGrounded;
+    
     
     public CharacterBaseState(CharacterStateMachine stateMachine)
     {
-        StateMachine = stateMachine;
+        _stateMachine = stateMachine;
     }
     
     public virtual void Enter()
@@ -50,30 +50,30 @@ public class CharacterBaseState : IState
     }
     protected virtual void SubscribeEvents()
     {
-        StateMachine.InputEventListener.OnStartMove += StartMove;
-        StateMachine.InputEventListener.OnStopMove += StopMove;
-        StateMachine.InputEventListener.OnJumpInputUp += Jump;
-
+        _stateMachine.InputEventListener.OnStartMove += StartMove;
+        _stateMachine.InputEventListener.OnStopMove += StopMove;
+        _stateMachine.InputEventListener.OnJumpInputUp += Jump;
     }
 
     protected virtual void DeSubscribeEvents()
     {
-        StateMachine.InputEventListener.OnStartMove -= StartMove;
-        StateMachine.InputEventListener.OnStopMove -= StopMove;
-        StateMachine.InputEventListener.OnJumpInputUp -= Jump;
+        _stateMachine.InputEventListener.OnStartMove -= StartMove;
+        _stateMachine.InputEventListener.OnStopMove -= StopMove;
+        _stateMachine.InputEventListener.OnJumpInputUp -= Jump;
     }
 
     protected void StartMove()
     {
         IsMove = true;
-        StartAnimation(StateMachine.AnimationController.IsMoveHash);
-        
+        _animationController.StartMove();
     }
+    
     protected void StopMove()
     {
         IsMove = false;
-        StopAnimation(StateMachine.AnimationController.IsMoveHash);
+        _animationController.StopMove();
     }
+    
     protected void Jump()
     {
         IsJump = true;
@@ -84,20 +84,9 @@ public class CharacterBaseState : IState
     {
         Quaternion rotateVec = EntityController.RotateVector(LookDir);
         Vector3 animDir = rotateVec * MoveDir;
-        StateMachine.AnimationController.SetFloat(MoveZAnimHash, animDir.z);
-        StateMachine.AnimationController.SetFloat(MoveXAnimHash, animDir.x);
-        StateMachine.Controller.LookAt(LookDir);
-        StateMachine.Controller.Move(MoveDir,SpeedModifier);
-    }
-
-    protected void StartAnimation(int hash)
-    {
-        StateMachine.AnimationController.SetBool(hash,true);
-    }
-
-    protected void StopAnimation(int hash)
-    {
-        StateMachine.AnimationController.SetBool(hash,false);
+        _animationController.SetMoveDir(animDir.z, animDir.x);
+        _stateMachine.Controller.LookAt(LookDir);
+        _stateMachine.Controller.Move(MoveDir,SpeedModifier);
     }
     
 }

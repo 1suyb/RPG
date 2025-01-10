@@ -4,37 +4,198 @@ using UnityEngine;
 
 public class CharacterAnimationController : EntityAnimationController
 {
-    [field:Header("Parameters")]
-    [field:SerializeField] public string IsMove { get; private set; }
-    [field:SerializeField] public string IsJump { get; private set; }
-    [field:SerializeField] public string IsDodge { get; private set; }
-    [field:SerializeField] public string IsFall { get; private set; }
-    [field:SerializeField] public string IsDie { get; private set; }
-    [field:SerializeField] public string MoveX { get; private set; }
-    [field:SerializeField] public string MoveZ { get; private set; }
-    
-    [field:Header("Tag")]
-    [field:SerializeField] public string DodgeTag { get; private set; }
-    [field:SerializeField] public string JumpStartTag { get; private set; }
-    [field:SerializeField] public string JumpEndTag { get; private set; }
-    
-    public int IsMoveHash { get; private set; }
-    public int IsJumpHash { get; private set; }
-    public int IsDodgeHash { get; private set; }
-    public int IsFallHash { get; private set; }
-    public int IsDieHash { get; private set; }
-    public int MoveXHash { get; private set; }
-    public int MoveZHash { get; private set; }
+    private string _isMove = "IsMove";
+    private string _isJump = "IsJump";
+    private string _isFall = "IsFall";
+    private string _isStun = "IsStun";
+    private string _hit = "Hit";
+    private string _dodge = "Dodge";
+    private string _potion = "Potion";
+    private string _pickUp = "PickUp";
+    private string _forward = "Forward";
+    private string _vertical = "Vertical";
+    private string _isEquipped = "IsEquipped";
+    private string _isEquipChange = "IsEquipChange";
+    private string _isAttack = "IsAttack";
+    private string _isCharging = "IsCharging";
+    private string _attackNum = "AttackNum";
+    private string _isClimb = "IsClimb";
+    private string _isDie = "IsDie";
+    private string _die = "Die";
 
+    private int _isMoveHash;
+    private int _isJumpHash;
+    private int _isFallHash;
+    private int _isStunHash;
+    private int _hitHash;
+    private int _dodgeHash;
+    private int _potionHash;
+    private int _pickUpHash;
+    private int _forwardHash;
+    private int _verticalHash;
+    private int _isEquippedHash;
+    private int _isEquipChangeHash;
+    private int _isAttackHash;
+    private int _isChargingHash;
+    private int _attackNumHash;
+    private int _isClimbHash;
+    private int _isDieHash;
+    private int _dieHash;
+
+    public string JumpStartTag { get; private set; } = "JumpStart";
+    public string JumpEndTag { get; private set; } = "JumpEnd";
+    public string DodgeTag { get; private set; } = "Dodge";
+    
     protected override void Awake()
     {
         base.Awake();
-        IsMoveHash = Animator.StringToHash(IsMove);
-        IsJumpHash = Animator.StringToHash(IsJump);
-        IsDodgeHash = Animator.StringToHash(IsDodge);
-        IsFallHash = Animator.StringToHash(IsFall);
-        IsDieHash = Animator.StringToHash(IsDie);
-        MoveXHash = Animator.StringToHash(MoveX);
-        MoveZHash = Animator.StringToHash(MoveZ);
+        _isMoveHash = Animator.StringToHash(_isMove);
+        _isJumpHash = Animator.StringToHash(_isJump);
+        _isFallHash = Animator.StringToHash(_isFall);
+        _isStunHash = Animator.StringToHash(_isStun);
+        _hitHash = Animator.StringToHash(_hit);
+        _dodgeHash = Animator.StringToHash(_dodge);
+        _potionHash = Animator.StringToHash(_potion);
+        _pickUpHash = Animator.StringToHash(_pickUp);
+        _forwardHash = Animator.StringToHash(_forward);
+        _verticalHash = Animator.StringToHash(_vertical);
+        _isEquippedHash = Animator.StringToHash(_isEquipped);
+        _isEquipChangeHash = Animator.StringToHash(_isEquipChange);
+        _isAttackHash = Animator.StringToHash(_isAttack);
+        _isChargingHash = Animator.StringToHash(_isCharging);
+        _attackNumHash = Animator.StringToHash(_attackNum);
+        _isClimbHash = Animator.StringToHash(_isClimb);
+        _isDieHash = Animator.StringToHash(_isDie);
+        _dieHash = Animator.StringToHash(_die);
     }
+
+    #region Move
+    public void StartMove()
+    {
+        SetBool(_isMoveHash, true);
+    }
+    public void StopMove()
+    {
+        SetBool(_isMoveHash, false);
+    }
+    public void SetMoveDir(float forward, float vertical)
+    {
+        SetFloat(_forwardHash, forward);
+        SetFloat(_verticalHash, vertical);
+    }
+    #endregion
+
+    #region Jump
+    public void StartJump()
+    {
+        SetBool(_isJumpHash, true);
+    }
+    public void StopJump()
+    {
+        SetBool(_isJumpHash, false);
+    }
+    public void StartFall()
+    {
+        SetBool(_isFallHash, true);
+    }
+    public void StopFall()
+    {
+        SetBool(_isFallHash, false);
+    }
+    #endregion
+
+    #region Attack
+    
+    public void StartAttack(int number)
+    {
+        SetInt(_attackNumHash, number);
+        SetBool(_isAttackHash, true);
+    }
+    public void StopAttack()
+    {
+        SetBool(_isAttackHash, false);
+    }
+    
+    public void StartCharging()
+    {
+        SetBool(_isChargingHash, true);
+    }
+    public void StopCharging()
+    {
+        SetBool(_isChargingHash, false);
+    }
+
+    #endregion
+    
+    #region Hit
+    public void Hit()
+    {
+        SetTrigger(_hitHash);
+    }
+
+    public void Stun()
+    {
+        SetBool(_isStunHash, true);
+        SetTrigger(_hitHash);
+    }
+    
+    public void StopStun()
+    {
+        SetBool(_isStunHash, false);
+    }
+    #endregion
+
+    #region Die
+    public void Die()
+    {
+        SetBool(_isDieHash, true);
+        SetTrigger(_dieHash);
+    }
+
+    public void Resurrection()
+    {
+        SetBool(_isDieHash, false);
+    }
+    #endregion
+
+    #region Climb
+    public void Climb()
+    {
+        SetBool(_isClimbHash, true);
+    }
+    public void StopClimb()
+    {
+        SetBool(_isClimbHash, false);
+    }
+    #endregion
+
+    #region Actions
+    public void Dodge()
+    {
+        SetTrigger(_dodgeHash);
+    }
+    public void Potion()
+    {
+        SetTrigger(_potionHash);
+    }
+    public void PickUp()
+    {
+        SetTrigger(_pickUpHash);
+    }
+    #endregion
+
+    #region Equpment
+    public void Equip()
+    {
+        SetBool(_isEquippedHash, true);
+        SetBool(_isEquipChangeHash, true);
+        
+    }
+    public void Unequip()
+    {
+        SetBool(_isEquippedHash, false);
+        SetBool(_isEquipChangeHash, true);
+    }
+    #endregion
+    
 }

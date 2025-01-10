@@ -239,9 +239,9 @@ GameObject:
   m_Component:
   - component: {fileID: 525523603}
   - component: {fileID: 525523607}
-  - component: {fileID: 525523605}
   - component: {fileID: 525523604}
   - component: {fileID: 525523606}
+  - component: {fileID: 525523608}
   m_Layer: 0
   m_Name: GameObject (1)
   m_TagString: Untagged
@@ -277,27 +277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee3539b05c1a17a4f820c8acbd064be9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 1759133542}
-  _attackRange: 3
   _controller: {fileID: 525523606}
---- !u!114 &525523605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 525523602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f950b7ad67519af4694327b6403ee7eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _characterController: {fileID: 0}
-  _gravity: 9.81
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 64
-  groundDistance: 0
 --- !u!114 &525523606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,12 +290,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d899688242ea4f54684b384362e7de8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterController: {fileID: 0}
+  _characterController: {fileID: 525523607}
   _gravity: 9.81
-  groundMask:
+  _groundMask:
     serializedVersion: 2
-    m_Bits: 64
-  groundDistance: 0.08
+    m_Bits: 0
+  _groundDistance: 0.08
+  _speed: 1
+  _animationController: {fileID: 525523608}
+  _target: {fileID: 1759133542}
+  _attackRange: 3
 --- !u!143 &525523607
 CharacterController:
   m_ObjectHideFlags: 0
@@ -342,6 +326,28 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &525523608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 525523602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5699be26a39ced94fb5ea35cd4fca90e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 0}
+  _isStun: IsStun
+  _isBattle: IsBattle
+  _isAttack: IsAttack
+  _isMove: IsMove
+  _attackNumber: AttackNumber
+  _hit: Hit
+  _die: Die
+  _forward: Forward
+  _vertical: Vertical
 --- !u!1 &583865672
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,6 +646,10 @@ MonoBehaviour:
   IsMove: 0
   IsJump: 0
   IsDodge: 0
+  IsEquiped: 0
+  IsEquipChange: 0
+  IsAttack: 0
+  AttackNumber: 0
 --- !u!114 &1759133539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -654,10 +664,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _characterController: {fileID: 1759133541}
   _gravity: 9.81
-  groundMask:
+  _groundMask:
     serializedVersion: 2
     m_Bits: 64
-  groundDistance: 0.08
+  _groundDistance: 0.08
+  _speed: 2
 --- !u!114 &1759133540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -770,16 +781,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 0}
-  <IsMove>k__BackingField: IsMove
-  <IsJump>k__BackingField: IsJump
-  <IsDodge>k__BackingField: IsDodge
-  <IsFall>k__BackingField: IsFall
-  <IsDie>k__BackingField: IsDie
-  <MoveX>k__BackingField: MoveX
-  <MoveZ>k__BackingField: MoveZ
-  <DodgeTag>k__BackingField: Dodge
-  <JumpStartTag>k__BackingField: JumpStart
-  <JumpEndTag>k__BackingField: JumpEnd
 --- !u!4 &1877540907291532584
 Transform:
   m_ObjectHideFlags: 0
@@ -1862,6 +1863,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1877540907291532662}
   - component: {fileID: 1877540907301384842}
+  - component: {fileID: 1877540907301384845}
+  - component: {fileID: 1877540907301384844}
+  - component: {fileID: 1877540907301384843}
   m_Layer: 0
   m_Name: BatPBRDefault
   m_TagString: Untagged
@@ -2041,6 +2045,42 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1877540907301384843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877540907292016982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cede17e792a63e4e81dd1f66fb8caa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1877540907301384844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877540907292016982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6f0e4a25b2b77848987784c10feae64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1877540907301384845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877540907292016982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36ec258e73e649d4bb3a3f5e3390cf6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1999063474640066505
 GameObject:
   m_ObjectHideFlags: 0

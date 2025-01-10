@@ -40,6 +40,8 @@ public class InputEventListenerSO : ScriptableObject
     public event Action OnQuickSlot3InputEvent;
     public event Action OnQuickSlot4InputEvent;
     public event Action OnQuickSlot5InputEvent;
+    public event Action OnAttackInputEvent;
+    public event Action OnCombatInputEvent;
 
     public void JumpInputDownEvent()
     {
@@ -49,7 +51,6 @@ public class InputEventListenerSO : ScriptableObject
     {
         OnJumpInputUp?.Invoke();
     }
-
     public void OnDodgeInputDownEvent()
     {
         OnDodgeInputDown?.Invoke();
@@ -86,5 +87,13 @@ public class InputEventListenerSO : ScriptableObject
     {
         OnQuickSlot5InputEvent?.Invoke();
     }
-
+    public void AttackInputEvent()
+    {
+        OnAttackInputEvent?.Invoke();
+    }
+    public void CombatInputEvent()
+    {
+        OnCombatInputEvent?.Invoke();
+    }
+    
 }

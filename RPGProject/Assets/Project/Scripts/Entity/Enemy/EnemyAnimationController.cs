@@ -27,19 +27,6 @@ public class EnemyAnimationController : EntityAnimationController
 
     private string _attack1Tag;
     private string _attack2Tag;
-
-    public event Action OnAttack1EndEvent;
-    public event Action OnAttack2EndEvent;
-
-    public void OnAttack1End()
-    {
-        OnAttack1EndEvent?.Invoke();
-    }
-
-    public void OnAttack2End()
-    {
-        OnAttack2EndEvent?.Invoke();
-    }
     
     public void Stun()
     {

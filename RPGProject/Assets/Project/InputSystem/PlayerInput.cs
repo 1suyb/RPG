@@ -143,6 +143,24 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""4cb5ec99-cb48-426d-91a4-571044d7b179"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CombatToggle"",
+                    ""type"": ""Button"",
+                    ""id"": ""be244c47-8f58-4765-aa70-e14c18b1adfa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -409,6 +427,28 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Dodge"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cbdc0f1b-56eb-4559-9eaa-b4e9a22e1e73"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5db206ff-b9e5-483b-82dd-caaeb09f7fdb"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CombatToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -463,6 +503,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_QuickSlot3 = m_Player.FindAction("QuickSlot3", throwIfNotFound: true);
         m_Player_QuickSlot4 = m_Player.FindAction("QuickSlot4", throwIfNotFound: true);
         m_Player_QuickSlot5 = m_Player.FindAction("QuickSlot5", throwIfNotFound: true);
+        m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
+        m_Player_CombatToggle = m_Player.FindAction("CombatToggle", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -537,6 +579,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_QuickSlot3;
     private readonly InputAction m_Player_QuickSlot4;
     private readonly InputAction m_Player_QuickSlot5;
+    private readonly InputAction m_Player_Attack;
+    private readonly InputAction m_Player_CombatToggle;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
@@ -554,6 +598,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @QuickSlot3 => m_Wrapper.m_Player_QuickSlot3;
         public InputAction @QuickSlot4 => m_Wrapper.m_Player_QuickSlot4;
         public InputAction @QuickSlot5 => m_Wrapper.m_Player_QuickSlot5;
+        public InputAction @Attack => m_Wrapper.m_Player_Attack;
+        public InputAction @CombatToggle => m_Wrapper.m_Player_CombatToggle;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -602,6 +648,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @QuickSlot5.started += instance.OnQuickSlot5;
             @QuickSlot5.performed += instance.OnQuickSlot5;
             @QuickSlot5.canceled += instance.OnQuickSlot5;
+            @Attack.started += instance.OnAttack;
+            @Attack.performed += instance.OnAttack;
+            @Attack.canceled += instance.OnAttack;
+            @CombatToggle.started += instance.OnCombatToggle;
+            @CombatToggle.performed += instance.OnCombatToggle;
+            @CombatToggle.canceled += instance.OnCombatToggle;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -645,6 +697,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @QuickSlot5.started -= instance.OnQuickSlot5;
             @QuickSlot5.performed -= instance.OnQuickSlot5;
             @QuickSlot5.canceled -= instance.OnQuickSlot5;
+            @Attack.started -= instance.OnAttack;
+            @Attack.performed -= instance.OnAttack;
+            @Attack.canceled -= instance.OnAttack;
+            @CombatToggle.started -= instance.OnCombatToggle;
+            @CombatToggle.performed -= instance.OnCombatToggle;
+            @CombatToggle.canceled -= instance.OnCombatToggle;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -695,5 +753,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnQuickSlot3(InputAction.CallbackContext context);
         void OnQuickSlot4(InputAction.CallbackContext context);
         void OnQuickSlot5(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
+        void OnCombatToggle(InputAction.CallbackContext context);
     }
 }

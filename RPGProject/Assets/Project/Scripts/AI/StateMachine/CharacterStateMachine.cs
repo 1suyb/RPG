@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class CharacterStateMachine : StateMachine
 {
@@ -28,11 +24,13 @@ public class CharacterStateMachine : StateMachine
     [HideInInspector] public bool IsMove;
     [HideInInspector] public bool IsJump;
     [HideInInspector] public bool IsDodge;
+    [HideInInspector] public bool IsEquiped;
+    [HideInInspector] public bool IsEquipChange;
+    [HideInInspector] public bool IsAttack;
+    [HideInInspector] public int AttackNumber;
     public bool IsGrounded => Controller.IsGrounded;
     public bool IsAriUp => Controller.IsAriUp;
 
-    
-    
     public void Init(Character character)
     {
         Character = character;
@@ -46,7 +44,16 @@ public class CharacterStateMachine : StateMachine
         Up = new CharacterUpState(this);
         Fall = new CharacterFallState(this);
         JumpEnd = new CharacterJumpEndState(this);
-
+        
+        Activate();
+    }
+    
+    public void Activate()
+    {
+        IsMove = false;
+        IsJump = false;
+        IsDodge = false;
+        
         ChangeState(Idle);
     }
 }
