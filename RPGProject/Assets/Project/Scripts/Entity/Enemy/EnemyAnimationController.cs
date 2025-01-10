@@ -8,6 +8,7 @@ public class EnemyAnimationController : EntityAnimationController
     [SerializeField] private string _isStun;
     [SerializeField] private string _isBattle;
     [SerializeField] private string _isAttack;
+    [SerializeField] private string _isMove;
     [SerializeField] public string _attackNumber;
     [SerializeField] private string _hit;
     [SerializeField] private string _die;
@@ -17,6 +18,7 @@ public class EnemyAnimationController : EntityAnimationController
     private int _isStunHash;
     private int _isBattleHash;
     private int _isAttackHash;
+    private int _isMoveHash;
     private int _attackNumberHash;
     private int _hitHash;
     private int _dieHash;
@@ -43,6 +45,7 @@ public class EnemyAnimationController : EntityAnimationController
     {
         SetBool(_isStunHash, true);
         SetTrigger(_hitHash);
+        StopAttack();
     }
     
     public void StopStun()
@@ -70,6 +73,7 @@ public class EnemyAnimationController : EntityAnimationController
     public void Hit()
     {
         SetTrigger(_hitHash);
+        StopAttack();
     }
     public void Die()
     {
@@ -78,6 +82,8 @@ public class EnemyAnimationController : EntityAnimationController
 
     public void Move(float forward, float vertical)
     {
+        bool move = forward != 0 || vertical != 0;
+        SetBool(_isMoveHash,move);
         SetFloat(_forwardHash, forward);
         SetFloat(_verticalHash, vertical);
     }
@@ -97,6 +103,7 @@ public class EnemyAnimationController : EntityAnimationController
         _isStunHash = Animator.StringToHash(_isStun);
         _isBattleHash = Animator.StringToHash(_isBattle);
         _isAttackHash = Animator.StringToHash(_isAttack);
+        _isMoveHash = Animator.StringToHash(_isMove);
         _attackNumberHash = Animator.StringToHash(_attackNumber);
         _hitHash = Animator.StringToHash(_hit);
         _dieHash = Animator.StringToHash(_die);

@@ -5,8 +5,6 @@ public class EnemyBehaviourTree : MonoBehaviour
 {
     private BTNode _rootBtNode;
     private bool isInited = true;
-    [SerializeField] protected Transform _target;
-    [SerializeField] protected float _attackRange;
     [SerializeField] protected EnemyController _controller;
 
     public void Update()
@@ -19,7 +17,7 @@ public class EnemyBehaviourTree : MonoBehaviour
 
     public void Awake()
     {
-        ConditionalActionBtNode attackBtNode = new ConditionalActionBtNode(() =>
+        /*ConditionalActionBtNode attackBtNode = new ConditionalActionBtNode(() =>
             {
                 return _attackRange>this.transform.Distance(_target);
             }, () =>
@@ -32,6 +30,10 @@ public class EnemyBehaviourTree : MonoBehaviour
             _controller.Toward(_target,1f);
             return NodeState.Success;
         });
+        SelectorBtNode selectorBtNode = new SelectorBtNode(new List<BTNode>() { attackBtNode, moveBtNode });
+        _rootBtNode = selectorBtNode;*/
+        ConditionalActionBtNode attackBtNode = new ConditionalActionBtNode(_controller.IsTargetInRange, _controller.Attack);
+        ActionBtNode moveBtNode = new ActionBtNode(_controller.Chase);
         SelectorBtNode selectorBtNode = new SelectorBtNode(new List<BTNode>() { attackBtNode, moveBtNode });
         _rootBtNode = selectorBtNode;
     }
