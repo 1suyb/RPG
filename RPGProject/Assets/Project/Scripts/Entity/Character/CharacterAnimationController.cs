@@ -15,7 +15,7 @@ public class CharacterAnimationController : EntityAnimationController
     private string _forward = "Forward";
     private string _vertical = "Vertical";
     private string _isEquipped = "IsEquipped";
-    private string _isEquipChange = "IsEquipChange";
+    private string _equipChange = "EquipChange";
     private string _isAttack = "IsAttack";
     private string _isCharging = "IsCharging";
     private string _attackNum = "AttackNum";
@@ -34,7 +34,7 @@ public class CharacterAnimationController : EntityAnimationController
     private int _forwardHash;
     private int _verticalHash;
     private int _isEquippedHash;
-    private int _isEquipChangeHash;
+    private int _equipChangeHash;
     private int _isAttackHash;
     private int _isChargingHash;
     private int _attackNumHash;
@@ -45,6 +45,8 @@ public class CharacterAnimationController : EntityAnimationController
     public string JumpStartTag { get; private set; } = "JumpStart";
     public string JumpEndTag { get; private set; } = "JumpEnd";
     public string DodgeTag { get; private set; } = "Dodge";
+    public string EquipChangeTag { get; private set; } = "EquipChange";
+    public string AttackTag { get; private set; } = "Attack";
     
     protected override void Awake()
     {
@@ -60,7 +62,7 @@ public class CharacterAnimationController : EntityAnimationController
         _forwardHash = Animator.StringToHash(_forward);
         _verticalHash = Animator.StringToHash(_vertical);
         _isEquippedHash = Animator.StringToHash(_isEquipped);
-        _isEquipChangeHash = Animator.StringToHash(_isEquipChange);
+        _equipChangeHash = Animator.StringToHash(_equipChange);
         _isAttackHash = Animator.StringToHash(_isAttack);
         _isChargingHash = Animator.StringToHash(_isCharging);
         _attackNumHash = Animator.StringToHash(_attackNum);
@@ -185,16 +187,16 @@ public class CharacterAnimationController : EntityAnimationController
     #endregion
 
     #region Equpment
-    public void Equip()
+    public void Equip(bool isEquip)
     {
-        SetBool(_isEquippedHash, true);
-        SetBool(_isEquipChangeHash, true);
+        SetBool(_isEquippedHash, isEquip);
+        SetTrigger(_equipChangeHash);
         
     }
-    public void Unequip()
+    public void UnEquip()
     {
         SetBool(_isEquippedHash, false);
-        SetBool(_isEquipChangeHash, true);
+        SetTrigger(_equipChangeHash);
     }
     #endregion
     

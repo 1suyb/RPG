@@ -23,6 +23,18 @@ public class CharacterBaseState : IState
         get => _stateMachine.IsJump;
         set => _stateMachine.IsJump = value;
     }
+
+    protected bool IsAttack
+    {
+        get => _stateMachine.IsAttack;
+        set => _stateMachine.IsAttack = value;
+    }
+
+    protected int AttackNumber
+    {
+        get => _stateMachine.AttackNumber;
+        set => _stateMachine.AttackNumber = value;
+    }
     
     protected Vector3 LookDir => _stateMachine.InputEventListener.LookDir;
     protected Vector3 MoveDir => _stateMachine.InputEventListener.MoveDir;

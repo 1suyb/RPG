@@ -47,12 +47,11 @@ public class GameObjectPool
         }
         else
         {
-            go = ResourceManager.Instantiate(_targetObject,root? root : _root);
+            go = ResourceManager.Instantiate(_targetObject, parent: root? root : _root);
         }
         PooledObject pooledItem = go.AddComponent<PooledObject>();
         pooledItem.Init(this, _id);
         _poolSize++;
-        go.SetActive(false);
         return go;
     }
 	

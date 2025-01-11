@@ -100,12 +100,14 @@ public class InputManager : MonoBehaviour, PlayerInput.IPlayerActions
     public void OnAttack(InputAction.CallbackContext context)
     {
         if(context.performed)
-            _inputEventListenerSo.AttackInputEvent();
+            _inputEventListenerSo.AttackInputDownEvent();
+        else if(context.canceled)
+            _inputEventListenerSo.AttackInputUpEvent();
     }
 
     public void OnCombatToggle(InputAction.CallbackContext context)
     {
         if(context.performed)
-            _inputEventListenerSo.CombatInputEvent();
+            _inputEventListenerSo.EquipChangeInputEvent();
     }
 }

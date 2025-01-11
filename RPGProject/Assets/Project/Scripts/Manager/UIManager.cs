@@ -21,7 +21,7 @@ namespace Manager
             }
             else
             {
-                T ui = ResourceManager.Instantiate(UIPath.Path[type], _canvas).GetComponent<T>();
+                T ui = ResourceManager.Instantiate(UIPath.Path[type],  parent:_canvas).GetComponent<T>();
                 _uiCache.Add(type, ui);
                 return ui;
             }

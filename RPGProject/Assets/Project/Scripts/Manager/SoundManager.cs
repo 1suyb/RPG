@@ -21,7 +21,7 @@ namespace Manager
                 _soundEventListenrSo = ResourceManager.Load<SoundEventListenrSO>(ResourcePath.SO.SoundEvent);
             }
             _sfxPlayerFactory = new GameObjectFactoryBase<SFXPlayer>(_sfxPrefab, 0, 50, transform);
-            _bgmSource = ResourceManager.Instantiate(_bgmPrefab, this.transform).GetComponent<AudioSource>();
+            _bgmSource = ResourceManager.Instantiate(_bgmPrefab, parent:this.transform).GetComponent<AudioSource>();
             _bgmSource.loop = true;
         }
 

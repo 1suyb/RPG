@@ -5,10 +5,10 @@ public class CharacterStat
     public int MP;
     public int Shield;
     public int Hunger;
-
-    public int HpPassiveChangeValue;
-    public int MpPassiveChangeValue;
-    public int HungerPassiveChangeValue;
+    
+    public int HpPassiveChangeValue;        // 굶주림 시 HP 자연 감소량
+    public int MpPassiveChangeValue;        // MP 자연 회복량
+    public int HungerPassiveChangeValue;    // 굶주림 자연 감소량
 
     public int PhysicalAttack;
     public int MagicalAttack;
@@ -17,6 +17,9 @@ public class CharacterStat
 
     public float CriticalChance;
     public float CriticalMultiplier;
+    
+    public float DefensePenetration;
+    public float AdditionalDamage;
 
     public float CoolDownReduction;
     public float TakeDamageReduction;
@@ -38,6 +41,9 @@ public class CharacterStat
 
         stat.CriticalChance = left.CriticalChance * right.CriticalChance;
         stat.CriticalMultiplier = left.CriticalMultiplier * right.CriticalMultiplier;
+        
+        stat.DefensePenetration = left.DefensePenetration * right.DefensePenetration;
+        stat.AdditionalDamage = left.AdditionalDamage * right.AdditionalDamage;
 
         stat.CoolDownReduction = left.CoolDownReduction * right.CoolDownReduction;
         stat.TakeDamageReduction = left.TakeDamageReduction * right.TakeDamageReduction;

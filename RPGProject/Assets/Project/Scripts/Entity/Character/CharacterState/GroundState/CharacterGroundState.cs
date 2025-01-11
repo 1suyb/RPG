@@ -12,6 +12,12 @@ public class CharacterGroundState : CharacterBaseState
         get => _stateMachine.IsEquipChange;
         set => _stateMachine.IsEquipChange = value;
     }
+    protected bool IsEquipped
+    {
+        get => _stateMachine.IsEquipped;
+        set => _stateMachine.IsEquipped = value;
+    }
+    
     public CharacterGroundState(CharacterStateMachine stateMachine) : base(stateMachine)
     {
     }
@@ -40,7 +46,13 @@ public class CharacterGroundState : CharacterBaseState
         }
         else if (IsEquipChange)
         {
-            
+            if((CharacterBaseState)_stateMachine.CurrentState!=_stateMachine.EquipChange)
+                _stateMachine.ChangeState(_stateMachine.EquipChange);
+        }
+        else if (IsEquipped && IsAttack)
+        {
+            if((CharacterBaseState)_stateMachine.CurrentState!=_stateMachine.Attack)
+                _stateMachine.ChangeState(_stateMachine.Attack);
         }
         else if(IsMove)
         {
@@ -60,6 +72,9 @@ public class CharacterGroundState : CharacterBaseState
     {
         base.SubscribeEvents();
         _stateMachine.InputEventListener.OnDodgeInputDown += Dodge;
+        _stateMachine.InputEventListener.OnEquipChangeInputEvent += ChangeEquip;
+        _stateMachine.InputEventListener.OnAttackInputDownEvent += Attack;
+        _stateMachine.InputEventListener.OnAttackInputUpEvent += StopAttack;
 
     }
 
@@ -67,10 +82,27 @@ public class CharacterGroundState : CharacterBaseState
     {
         base.DeSubscribeEvents();
         _stateMachine.InputEventListener.OnDodgeInputDown -= Dodge;
+        _stateMachine.InputEventListener.OnEquipChangeInputEvent -= ChangeEquip;
+        _stateMachine.InputEventListener.OnAttackInputDownEvent -= Attack;
+        _stateMachine.InputEventListener.OnAttackInputUpEvent -= StopAttack;
     }
 
     protected void Dodge()
     {
         IsDodge = true;
+    }
+    protected void ChangeEquip()
+    {
+        IsEquipChange = true;
+        IsEquipped = !IsEquipped;
+    }
+    protected void Attack()
+    {
+        IsAttack = true;
+    }
+
+    protected void StopAttack()
+    {
+        IsAttack = false;
     }
 }
