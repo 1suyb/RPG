@@ -7,8 +7,8 @@ public class AttackData
 {
     public int AnimationNumber;
     
-    public float PhysicalPlat;
-    public float MagicalPlat;
+    public int PhysicalPlat;
+    public int MagicalPlat;
     public float PhysicalMultiplier;
     public float MagicalMultiplier;
 

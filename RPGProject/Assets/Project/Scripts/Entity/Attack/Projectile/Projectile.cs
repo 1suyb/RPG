@@ -1,14 +1,16 @@
 using System;
+using System.Collections.Generic;
 using Manager;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour, ILoadable
+public class Projectile : AttackBase, ILoadable
 {
     private Transform _target;
     private Vector3 _dir;
     
-    private AttackData _attackData;
     private ProjectileData _projectileData;
+    
+    private ProjectileCollider _projectileCollider;
     
     private float _speed => _projectileData.Speed;
     private bool _isTracking => _projectileData.IsTracking;
@@ -23,7 +25,9 @@ public class Projectile : MonoBehaviour, ILoadable
     {
         InitOnCreate();
         string filePath = ResourcePath.Prefab.Projectile(id.ToString());
-        ResourceManager.Instantiate(filePath, parent:transform);
+        GameObject obj = ResourceManager.Instantiate(filePath, parent:transform);
+        _projectileCollider = obj.GetComponent<ProjectileCollider>();
+        _projectileCollider.OnHit += Hit;
         _projectileData = new ProjectileData();
         _projectileData.Speed = 5f;
         _projectileData.IsTracking = true;
@@ -37,11 +41,14 @@ public class Projectile : MonoBehaviour, ILoadable
     /// <summary>
     ///  활성화 될때 데이터를 세팅하는 함수
     /// </summary>
-    public virtual void InitOnActive(Transform target, AttackData attackData)
+    public virtual void InitOnActive(Transform target, LayerMask layer, AttackData attackData)
     {
         _target = target;
+        _targetLayer = layer;
         _attackData = attackData;
         _dir = (_target.position - transform.position).normalized;
+        _dir.y = 0;
+        _projectileCollider.InitOnActivate(_targetLayer);
     }
 
     protected void OnDisable()
@@ -65,11 +72,17 @@ public class Projectile : MonoBehaviour, ILoadable
             if (_isTracking)
             {
                 _dir = (_target.position - transform.position).normalized;
+                _dir.y = 0;
                 transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(_dir), Time.deltaTime * 10f);
             }
             transform.position += _speed * Time.deltaTime * _dir;
         }
     }
-    
+
+    public virtual void Hit(Collider collider)
+    {
+        DealDamage(collider, _targetLayer, _attackData, transform);
+        this.gameObject.SetActive(false);
+    }
 }
 

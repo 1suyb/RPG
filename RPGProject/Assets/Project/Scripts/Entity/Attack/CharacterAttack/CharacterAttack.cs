@@ -1,0 +1,19 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public abstract class CharacterAttack : AttackBase
+{
+    protected Character _character;
+    protected EntityPivot _characterPivot;
+    protected new AttackData _attackData => _character.CurrentAttackData;
+    protected new LayerMask _targetLayer => _character.TargetLayer;
+    
+    protected void Start()
+    {
+        _character = GetComponentInParent<Character>();
+        _characterPivot = GetComponent<EntityPivot>();
+    }
+
+    public abstract void Attack();
+}

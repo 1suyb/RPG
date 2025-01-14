@@ -14,6 +14,8 @@ namespace ResourcePath
     public class Prefab
     {
         public static string Projectile(string fileName) => $"Prefabs/Projectile/{fileName}";
+        public static string FloatingHpBar = "Prefabs/UI/FloatingHpBar";
+        public static string FloatingUICanvas = "Prefabs/UI/FloatingUICanvas";
     }
 
 }

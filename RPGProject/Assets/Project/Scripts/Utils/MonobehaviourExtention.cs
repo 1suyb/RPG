@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class GameObjectExtention
 {
-    public static T GetComponentInDirectChild<T>(this GameObject go) where T : Component
+    public static T GetComponentInDirectChild<T>(this GameObject go) where T : class
     {
         foreach (Transform child in go.transform)
         {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Manager;
@@ -9,37 +10,32 @@ public class GameObjectFactoryBase<T> where T : Component
     private int _poolMaxSize;
     private GameObject _prefab;
     private Transform _root;
+    private Action<GameObject> _createObject;
     
-    public GameObjectFactoryBase(string path, int minSize = 0, int maxSize = 10, Transform root = null)
+    public GameObjectFactoryBase(string path, int minSize = 0, int maxSize = 10, Transform root = null, Action<GameObject> createObject=null)
     {
-        InitOnCreate(ResourceManager.Load<GameObject>(path), minSize, maxSize, root);
+        InitOnCreate(ResourceManager.Load<GameObject>(path), minSize, maxSize, root, createObject);
     }
-    public GameObjectFactoryBase(GameObject prefab, int minSize = 0, int maxSize = 10, Transform root = null)
+    public GameObjectFactoryBase(GameObject prefab, int minSize = 0, int maxSize = 10, Transform root = null, Action<GameObject> createObject=null)
     {
-        InitOnCreate(prefab, minSize, maxSize, root);
+        InitOnCreate(prefab, minSize, maxSize, root, createObject);
     }
-
-    /// <summary>
-    /// 생성자에서 실행되는 함수
-    /// </summary>
-    /// <param name="prefab"></param>
-    /// <param name="minSize"></param>
-    /// <param name="maxSize"></param>
-    /// <param name="root"></param>
-    protected virtual void InitOnCreate(GameObject prefab, int minSize = 0, int maxSize = 10, Transform root = null)
+    
+    protected virtual void InitOnCreate(GameObject prefab, int minSize = 0, int maxSize = 10, Transform root = null, Action<GameObject> createObject=null)
     {
         this._prefab = prefab;
         _poolMinSize = minSize;
         _poolMaxSize = maxSize;
         _pool = new Dictionary<int, GameObjectPool>();
         _root = root;
+        _createObject = createObject;
     }
     
     private bool CheckPool(int id) => _pool.ContainsKey(id);
 
     private void SetPool(int id)
     {
-        _pool.Add(id, new GameObjectPool(_prefab, id, _poolMinSize, _poolMaxSize,_root));
+        _pool.Add(id, new GameObjectPool(_prefab, id, _poolMinSize, _poolMaxSize,_root, _createObject));
     }
     
     /// <summary>
@@ -49,7 +45,7 @@ public class GameObjectFactoryBase<T> where T : Component
     /// <returns></returns>
     public virtual T InitObjOnActivate(T obj)
     {
-        return obj.GetComponent<T>();
+        return obj;
     }
     
     /// <summary>

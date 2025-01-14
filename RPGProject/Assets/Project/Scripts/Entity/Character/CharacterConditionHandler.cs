@@ -1,8 +1,7 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
-public class CharacterConditionHandler : MonoBehaviour, ITakeHeal, ITakeDamage
+public class CharacterConditionHandler : MonoBehaviour
 {
     private Condition _hp;
     private Condition _mp;
@@ -15,7 +14,7 @@ public class CharacterConditionHandler : MonoBehaviour, ITakeHeal, ITakeDamage
 
     private CharacterStatHandler _statHandler;
     
-    public void Init(CharacterStatHandler statHandler)
+    public void InitOnCreate(CharacterStatHandler statHandler)
     {
         _waitTime = new WaitForSeconds(_intervalTime);
         _hp = new Condition();
@@ -26,13 +25,10 @@ public class CharacterConditionHandler : MonoBehaviour, ITakeHeal, ITakeDamage
         _statHandler = statHandler;
         _updateCoroutine = StartCoroutine(UpdateCondition());
     }
-    
-    public void OnEnable()
+
+    public void InitOnActive()
     {
-        if (_statHandler != null)
-        {
-            _statHandler.ChangedStat += SetChangeStat;
-        }
+        _statHandler.ChangedStat += SetChangeStat;
     }
 
     private void OnDestroy()
@@ -70,14 +66,5 @@ public class CharacterConditionHandler : MonoBehaviour, ITakeHeal, ITakeDamage
         _mp.Update();
         _hunger.Update();
     }
-
-    public void TakeHeal()
-    {
-        
-    }
-
-    public void TakeDamage()
-    {
-        
-    }
+    
 }

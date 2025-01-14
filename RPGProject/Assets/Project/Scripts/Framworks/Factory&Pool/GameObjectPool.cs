@@ -10,11 +10,11 @@ public class GameObjectPool
     private readonly int _id;
     private readonly int _maxsize;
     private int _poolSize;
-    private readonly Func<GameObject> _createObject;
+    private readonly Action<GameObject> _createObject;
     private Transform _root;
     public bool IsPoolEmpty => _pool.Count == 0;
 
-    public GameObjectPool(GameObject targetObject, int id=-1, int minSize=0, int maxSize=10,Transform root = null, Func<GameObject> createObject=null)
+    public GameObjectPool(GameObject targetObject, int id=-1, int minSize=0, int maxSize=10,Transform root = null, Action<GameObject> createObject=null)
     {
         this._targetObject = targetObject;
         this._id = id;
@@ -41,13 +41,10 @@ public class GameObjectPool
     private GameObject CreateItem(Transform root = null)
     {
         GameObject go;
+        go = ResourceManager.Instantiate(_targetObject, parent: root? root : _root);
         if (_createObject != null)
         {
-            go = _createObject();
-        }
-        else
-        {
-            go = ResourceManager.Instantiate(_targetObject, parent: root? root : _root);
+            _createObject(go);
         }
         PooledObject pooledItem = go.AddComponent<PooledObject>();
         pooledItem.Init(this, _id);

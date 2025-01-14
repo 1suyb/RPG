@@ -1,9 +1,9 @@
-public interface ITakeDamage
+public interface IDamageable
 {
-    public void TakeDamage();
+    public void TakeDamage(int damage);
 }
 
-public interface ITakeHeal
+public interface IHealable
 {
-    public void TakeHeal();
+    public void ReceiveHealing();
 }

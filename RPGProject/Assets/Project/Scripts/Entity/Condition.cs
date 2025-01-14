@@ -28,6 +28,13 @@ public class Condition
         }
     }
     
+    public Condition(int maxCondition = 100, int passiveChangeValue = 0)
+    {
+        _maxCondition = maxCondition;
+        _currentCondition = _maxCondition;
+        _passiveChangeValue = passiveChangeValue;
+    }
+    
     public void SetMaxCondition(int maxCondition)
     {
         CurrentCondition += maxCondition - _maxCondition;
