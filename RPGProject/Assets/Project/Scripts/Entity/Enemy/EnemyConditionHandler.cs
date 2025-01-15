@@ -6,10 +6,13 @@ public class EnemyConditionHandler : MonoBehaviour
 {
     private Condition _hp;
     private Condition _shield;
-    [SerializeField] private int _maxHp;
+    [SerializeField] private StatHandler _statHandler;
+    private int _maxHp => _statHandler.CurrentStat.HP;
     
-    public void InitOnCreate()
+    
+    public void InitOnCreate(StatHandler statHandler)
     {
+        _statHandler = statHandler;
         _hp = new Condition(_maxHp);
         _shield = new Condition();
     }

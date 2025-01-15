@@ -12,9 +12,9 @@ public class CharacterConditionHandler : MonoBehaviour
     private WaitForSeconds _waitTime;
     private Coroutine _updateCoroutine;
 
-    private CharacterStatHandler _statHandler;
+    private StatHandler _statHandler;
     
-    public void InitOnCreate(CharacterStatHandler statHandler)
+    public void InitOnCreate(StatHandler statHandler)
     {
         _waitTime = new WaitForSeconds(_intervalTime);
         _hp = new Condition();
@@ -47,7 +47,7 @@ public class CharacterConditionHandler : MonoBehaviour
         }
     }
     
-    public void SetChangeStat(CharacterStat stat)
+    public void SetChangeStat(Stat stat)
     {
         _hp.SetMaxCondition(stat.HP);
         _mp.SetMaxCondition(stat.MP);

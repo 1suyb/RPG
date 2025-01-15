@@ -25,3 +25,20 @@ public class AttackData
 
 }
 
+[Serializable]
+public class DamageData
+{
+    public int PhysicalDamage;
+    public int MagicalDamage;
+    
+    public float DefensePenetration;
+    public bool Knockback;
+
+    public DamageData(int physicalDamage, int magicalDamage, float defensePenetration, bool knockback)
+    {
+        PhysicalDamage = physicalDamage;
+        MagicalDamage = magicalDamage;
+        DefensePenetration = defensePenetration;
+        Knockback = knockback;
+    }
+}

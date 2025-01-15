@@ -15,7 +15,7 @@ namespace Manager
         {
             base.InitOnCreate();
             _camera = Camera.main;
-            _floatingUICanvas = ResourceManager.Instantiate(ResourcePath.Prefab.FloatingUICanvas).GetComponent<Canvas>();
+            _floatingUICanvas = ResourceManager.Instantiate(UIPath.RootCanvas).GetComponent<Canvas>();
             _floatingHpbarFactory = new FloatingHpbarFactory(ResourcePath.Prefab.FloatingHpBar, 0, 100, _floatingUICanvas.transform);
         }
         

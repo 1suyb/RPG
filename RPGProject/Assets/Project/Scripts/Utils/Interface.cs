@@ -1,6 +1,6 @@
 public interface IDamageable
 {
-    public void TakeDamage(int damage);
+    public void TakeDamage(AttackHandler attackHandler);
 }
 
 public interface IHealable

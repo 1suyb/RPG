@@ -6,7 +6,8 @@ public abstract class CharacterAttack : AttackBase
 {
     protected Character _character;
     protected EntityPivot _characterPivot;
-    protected new AttackData _attackData => _character.CurrentAttackData;
+    protected AttackData _attackData => _character.CurrentAttackData;
+    protected Stat _currentStat => _character.StatHandler.CurrentStat;
     protected new LayerMask _targetLayer => _character.TargetLayer;
     
     protected void Start()

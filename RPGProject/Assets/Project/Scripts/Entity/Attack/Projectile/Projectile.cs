@@ -9,8 +9,8 @@ public class Projectile : AttackBase, ILoadable
     private Vector3 _dir;
     
     private ProjectileData _projectileData;
-    
     private ProjectileCollider _projectileCollider;
+    private AttackHandler _attackHandler;
     
     private float _speed => _projectileData.Speed;
     private bool _isTracking => _projectileData.IsTracking;
@@ -41,20 +41,22 @@ public class Projectile : AttackBase, ILoadable
     /// <summary>
     ///  활성화 될때 데이터를 세팅하는 함수
     /// </summary>
-    public virtual void InitOnActive(Transform target, LayerMask layer, AttackData attackData)
+    public virtual void InitOnActive(Transform target, LayerMask layer, AttackHandler attackHandler)
     {
+        _attackHandler = attackHandler;
+        
         _target = target;
         _targetLayer = layer;
-        _attackData = attackData;
         _dir = (_target.position - transform.position).normalized;
         _dir.y = 0;
+        
         _projectileCollider.InitOnActivate(_targetLayer);
     }
 
     protected void OnDisable()
     {
+        ProjectileController.Instance.RemoveProjectile(this);
         _target = null;
-        _attackData = null;
         _dir = Vector3.zero;
     }
 
@@ -81,7 +83,7 @@ public class Projectile : AttackBase, ILoadable
 
     public virtual void Hit(Collider collider)
     {
-        DealDamage(collider, _targetLayer, _attackData, transform);
+        DealDamage(collider, _targetLayer, _attackHandler, transform);
         this.gameObject.SetActive(false);
     }
 }

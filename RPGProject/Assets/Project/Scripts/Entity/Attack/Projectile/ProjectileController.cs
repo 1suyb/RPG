@@ -22,12 +22,17 @@ public class ProjectileController : SingletonBase<ProjectileController>
         _projectiles = new List<Projectile>();
     }
 
-    public void CreateProjectile(int id,Transform target, LayerMask layer, AttackData attackData, Vector3 position = default, Quaternion rotate = default)
+    public void CreateProjectile(int id,Transform target, LayerMask layer, AttackHandler attackHandler, Vector3 position = default, Quaternion rotate = default)
     {
         Projectile projectile = _projectileFactory.Create(id);
         projectile.transform.SetPositionAndRotation(position, rotate);
-        projectile.InitOnActive(target, layer, attackData);
+        projectile.InitOnActive(target, layer, attackHandler);
         _projectiles.Add(projectile);
+    }
+    
+    public void RemoveProjectile(Projectile projectile)
+    {
+        _projectiles.Remove(projectile);
     }
     
     public void Update()

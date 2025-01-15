@@ -1,4 +1,8 @@
-public class CharacterStat
+using System;
+using UnityEngine;
+
+[Serializable]
+public class Stat 
 {
     // 속성
     public int HP;
@@ -15,24 +19,35 @@ public class CharacterStat
     public int PhysicalDefence;
     public int MagicalDefence;
 
+    [Tooltip("치명타 확률")]
     public float CriticalChance;
+    [Tooltip("치명타 배율")]
     public float CriticalMultiplier;
     
-    public float DefensePenetration;
-    public float AdditionalDamage;
+    [Tooltip("방어 관통력")]
+    public float DefensePenetration;    // 방어 관통력
+    [Tooltip("추가 데미지")]
+    public float AdditionalDamage;      // 추가 데미지
 
-    public float CoolDownReduction;
-    public float TakeDamageReduction;
-    public float DealDamageIncrease;
+    [Tooltip("쿨다운 감소")]
+    public float CoolDownReduction;     // 쿨다운 감소
+    [Tooltip("받는 데미지 감소")]
+    public float TakeDamageReduction;   // 받는 데미지 감소
+    [Tooltip("데미지 증가")]
+    public float DealDamageIncrease;    // 주는 데미지 증가
     
-    public static CharacterStat operator *(CharacterStat left, CharacterStat right)
+    public static Stat operator *(Stat left, Stat right)
     {
-        CharacterStat stat = new CharacterStat();
+        Stat stat = new Stat();
         
         stat.HP = left.HP * right.HP;
         stat.MP = left.MP * right.MP;
         stat.Shield = left.Shield * right.Shield;
         stat.Hunger = left.Hunger * right.Hunger;
+        
+        stat.HpPassiveChangeValue = left.HpPassiveChangeValue * right.HpPassiveChangeValue;
+        stat.MpPassiveChangeValue = left.MpPassiveChangeValue * right.MpPassiveChangeValue;
+        stat.HungerPassiveChangeValue = left.HungerPassiveChangeValue * right.HungerPassiveChangeValue;
 
         stat.PhysicalAttack = left.PhysicalAttack * right.PhysicalAttack;
         stat.MagicalAttack = left.MagicalAttack * right.MagicalAttack;
@@ -52,14 +67,18 @@ public class CharacterStat
         return stat;
     }
     
-    public static CharacterStat operator +(CharacterStat left, CharacterStat right)
+    public static Stat operator +(Stat left, Stat right)
     {
-        CharacterStat stat = new CharacterStat();
+        Stat stat = new Stat();
         
         stat.HP = left.HP + right.HP;
         stat.MP = left.MP + right.MP;
         stat.Shield = left.Shield + right.Shield;
         stat.Hunger = left.Hunger + right.Hunger;
+        
+        stat.HpPassiveChangeValue = left.HpPassiveChangeValue + right.HpPassiveChangeValue;
+        stat.MpPassiveChangeValue = left.MpPassiveChangeValue + right.MpPassiveChangeValue;
+        stat.HungerPassiveChangeValue = left.HungerPassiveChangeValue + right.HungerPassiveChangeValue;
 
         stat.PhysicalAttack = left.PhysicalAttack + right.PhysicalAttack;
         stat.MagicalAttack = left.MagicalAttack + right.MagicalAttack;
@@ -76,14 +95,18 @@ public class CharacterStat
         return stat;
     }
     
-    public static CharacterStat operator -(CharacterStat left, CharacterStat right)
+    public static Stat operator -(Stat left, Stat right)
     {
-        CharacterStat stat = new CharacterStat();
+        Stat stat = new Stat();
         
         stat.HP = left.HP - right.HP;
         stat.MP = left.MP - right.MP;
         stat.Shield = left.Shield - right.Shield;
         stat.Hunger = left.Hunger - right.Hunger;
+        
+        stat.HpPassiveChangeValue = left.HpPassiveChangeValue - right.HpPassiveChangeValue;
+        stat.MpPassiveChangeValue = left.MpPassiveChangeValue - right.MpPassiveChangeValue;
+        stat.HungerPassiveChangeValue = left.HungerPassiveChangeValue - right.HungerPassiveChangeValue;
 
         stat.PhysicalAttack = left.PhysicalAttack - right.PhysicalAttack;
         stat.MagicalAttack = left.MagicalAttack - right.MagicalAttack;
@@ -100,14 +123,18 @@ public class CharacterStat
         return stat;
     }
     
-    public static CharacterStat operator /(CharacterStat left, CharacterStat right)
+    public static Stat operator /(Stat left, Stat right)
         {
-            CharacterStat stat = new CharacterStat();
+            Stat stat = new Stat();
             
             stat.HP = left.HP / right.HP;
             stat.MP = left.MP / right.MP;
             stat.Shield = left.Shield / right.Shield;
             stat.Hunger = left.Hunger / right.Hunger;
+            
+            stat.HpPassiveChangeValue = left.HpPassiveChangeValue / right.HpPassiveChangeValue;
+            stat.MpPassiveChangeValue = left.MpPassiveChangeValue / right.MpPassiveChangeValue;
+            stat.HungerPassiveChangeValue = left.HungerPassiveChangeValue / right.HungerPassiveChangeValue;
     
             stat.PhysicalAttack = left.PhysicalAttack / right.PhysicalAttack;
             stat.MagicalAttack = left.MagicalAttack / right.MagicalAttack;
@@ -122,7 +149,6 @@ public class CharacterStat
             stat.DealDamageIncrease = left.DealDamageIncrease / right.DealDamageIncrease;
     
             return stat;
-            
         }
 }
 
