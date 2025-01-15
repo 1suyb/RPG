@@ -46,10 +46,6 @@ public class EnemyController : EntityController
 
     public bool IsTargetInRange()
     {
-        if (_isAttacking)
-        {
-            return true;
-        }
         return this.transform.Distance(_target) < _attackRange;
     }
     

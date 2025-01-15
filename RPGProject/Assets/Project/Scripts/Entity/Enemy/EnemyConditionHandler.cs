@@ -16,4 +16,18 @@ public class EnemyConditionHandler : MonoBehaviour
         _hp = new Condition(_maxHp);
         _shield = new Condition();
     }
+
+    public void TakeDamage(int damage)
+    {
+        if (_shield.CurrentValue > damage)
+        {
+            _shield.CurrentValue -= damage;
+        }
+        else
+        {
+            damage -= _shield.CurrentValue;
+            _shield.CurrentValue = 0;
+            _hp.CurrentValue -= damage;
+        }
+    }
 }

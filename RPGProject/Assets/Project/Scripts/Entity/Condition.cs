@@ -1,44 +1,43 @@
 using System;
 using UnityEngine;
 
-[Serializable]
 public class Condition
 {
-    private int _maxCondition;
-    private int _currentCondition;
+    private int _maxValue;
+    private int _currentValue;
     private int _passiveChangeValue;
 
     public event Action<float> ChangeCondition;
     public event Action ExhaustCondition;
 
-    public int CurrentCondition
+    public int CurrentValue
     {
-        get => _currentCondition;
+        get => _currentValue;
         set
         {
-            if (_currentCondition != value)
+            if (_currentValue != value)
             {
-                ChangeCondition?.Invoke((float)_currentCondition/(float)_maxCondition);
+                ChangeCondition?.Invoke((float)_currentValue/(float)_maxValue);
             }
-            _currentCondition = Mathf.Clamp(value, 0, _maxCondition);
-            if (_currentCondition == 0)
+            _currentValue = Mathf.Clamp(value, 0, _maxValue);
+            if (_currentValue == 0)
             {
                 ExhaustCondition?.Invoke();
             }
         }
     }
     
-    public Condition(int maxCondition = 100, int passiveChangeValue = 0)
+    public Condition(int maxValue = 100, int passiveChangeValue = 0)
     {
-        _maxCondition = maxCondition;
-        _currentCondition = _maxCondition;
+        _maxValue = maxValue;
+        _currentValue = _maxValue;
         _passiveChangeValue = passiveChangeValue;
     }
     
     public void SetMaxCondition(int maxCondition)
     {
-        CurrentCondition += maxCondition - _maxCondition;
-        _maxCondition = maxCondition;
+        CurrentValue += maxCondition - _maxValue;
+        _maxValue = maxCondition;
     }
 
     public void SetPassiveValue(int passiveValue)
@@ -48,6 +47,6 @@ public class Condition
 
     public void Update()
     {
-        _currentCondition += _passiveChangeValue;
+        _currentValue += _passiveChangeValue;
     }
 }

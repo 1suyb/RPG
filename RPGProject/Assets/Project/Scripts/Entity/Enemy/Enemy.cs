@@ -33,7 +33,9 @@ public class Enemy : MonoBehaviour, IDamageable, ILoadable
 
     public void TakeDamage(AttackHandler attackHandler)
     {
-        Debug.Log($"나맞앗어 {attackHandler.CalculateDamage(CurrentStat)}");
+        int damage = attackHandler.CalculateDamage(CurrentStat);
+        Debug.Log($"나맞앗어 {damage}");
+        ConditionHandler.TakeDamage(damage);
         
     }
 
