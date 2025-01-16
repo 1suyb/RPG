@@ -191,7 +191,6 @@ public class ConditionalActionBtNode : BTNode
 {
     protected Func<bool> _condition;
     protected Func<NodeState> _action;
-    protected NodeState _state;
 
     public ConditionalActionBtNode(Func<bool> condition, Func<NodeState> action)
     {
@@ -200,12 +199,9 @@ public class ConditionalActionBtNode : BTNode
     }
     public NodeState Evaluate()
     {
-        NodeState result;
-        if (_state == NodeState.Running || _condition())
+        if (_condition())
         {
-            result = _action();
-            _state = result;
-            return result;
+            return _action();
         }
         return NodeState.Failure;
     }

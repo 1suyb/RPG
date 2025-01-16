@@ -395,15 +395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 0}
-  _isStun: IsStun
-  _isBattle: IsBattle
-  _isAttack: IsAttack
-  _isMove: IsMove
   _attackNumber: AttackNumber
-  _hit: Hit
-  _die: Die
-  _forward: Forward
-  _vertical: Vertical
 --- !u!114 &525523609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -418,16 +410,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <StatHandler>k__BackingField: {fileID: 525523611}
   <ConditionHandler>k__BackingField: {fileID: 525523610}
+  <Controller>k__BackingField: {fileID: 525523606}
   <CurrentAttackData>k__BackingField:
     AnimationNumber: 0
-    PhysicalPlat: 0
+    PhysicalPlat: 5
     MagicalPlat: 0
     PhysicalMultiplier: 1
-    MagicalMultiplier: 1
-    CriticalChance: 1
-    CriticalMultiplier: 1
-    DefensePenetration: 1
-    AdditionalDamage: 1
+    MagicalMultiplier: 0
+    CriticalChance: 0
+    CriticalMultiplier: 0
+    DefensePenetration: 0
+    AdditionalDamage: 0
     AttackRange: 1
     AttackSpeed: 1
     AttackCooldown: 0
@@ -448,7 +441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 339c23b41b37e8a4cbe20753f3ba1764, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHp: 0
+  _statHandler: {fileID: 525523611}
 --- !u!114 &525523611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -461,6 +454,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b38f6fbff274c6b97f367e872492bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _baseStat:
+    HP: 20
+    MP: 0
+    Shield: 0
+    Hunger: 0
+    HpPassiveChangeValue: 0
+    MpPassiveChangeValue: 0
+    HungerPassiveChangeValue: 0
+    PhysicalAttack: 1
+    MagicalAttack: 0
+    PhysicalDefence: 0
+    MagicalDefence: 0
+    CriticalChance: 0
+    CriticalMultiplier: 0
+    DefensePenetration: 0
+    AdditionalDamage: 0
+    CoolDownReduction: 0
+    TakeDamageReduction: 0
+    DealDamageIncrease: 0
 --- !u!1 &583865672
 GameObject:
   m_ObjectHideFlags: 0
@@ -832,10 +844,10 @@ MonoBehaviour:
     AnimationNumber: 0
     PhysicalPlat: 10
     MagicalPlat: 0
-    PhysicalMultiplier: 1
-    MagicalMultiplier: 1
-    CriticalChance: 1
-    CriticalMultiplier: 1
+    PhysicalMultiplier: 100
+    MagicalMultiplier: 0
+    CriticalChance: 0
+    CriticalMultiplier: 100
     DefensePenetration: 0
     AdditionalDamage: 0
     AttackRange: 5
@@ -930,6 +942,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b38f6fbff274c6b97f367e872492bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _baseStat:
+    HP: 0
+    MP: 0
+    Shield: 0
+    Hunger: 0
+    HpPassiveChangeValue: 0
+    MpPassiveChangeValue: 0
+    HungerPassiveChangeValue: 0
+    PhysicalAttack: 1
+    MagicalAttack: 0
+    PhysicalDefence: 0
+    MagicalDefence: 0
+    CriticalChance: 0
+    CriticalMultiplier: 0
+    DefensePenetration: 0
+    AdditionalDamage: 0
+    CoolDownReduction: 0
+    TakeDamageReduction: 0
+    DealDamageIncrease: 0
 --- !u!114 &1759133547
 MonoBehaviour:
   m_ObjectHideFlags: 0

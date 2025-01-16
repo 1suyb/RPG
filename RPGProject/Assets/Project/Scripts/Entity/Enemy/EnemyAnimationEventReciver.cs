@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EnemyAnimationEventReceiver : MonoBehaviour
 {
-    public event Action OnEndAttackEvent;
-    public void EndAttack()
+    public event Action OnEndAnimationEvent;
+    public void EndAnimation()
     {
-        OnEndAttackEvent?.Invoke();
+        OnEndAnimationEvent?.Invoke();
     }
 }

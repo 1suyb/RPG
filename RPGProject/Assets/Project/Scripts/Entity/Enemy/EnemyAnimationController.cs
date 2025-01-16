@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class EnemyAnimationController : EntityAnimationController
 {
-    [SerializeField] private string _isStun;
-    [SerializeField] private string _isBattle;
-    [SerializeField] private string _isAttack;
-    [SerializeField] private string _isMove;
-    [SerializeField] public string _attackNumber;
-    [SerializeField] private string _hit;
-    [SerializeField] private string _die;
-    [SerializeField] private string _forward;
-    [SerializeField] private string _vertical;
+    private string _isStun = "IsStun";
+    private string _isBattle = "IsBattle";
+    private string _isAttack = "IsAttack";
+    private string _isMove = "IsMove";
+    public string _attackNumber = "AttackNumber";
+    private string _hit = "Hit";
+    private string _die = "Die";
+    private string _forward = "Forward";
+    private string _vertical = "Vertical";
 
     private int _isStunHash;
     private int _isBattleHash;
@@ -25,8 +25,9 @@ public class EnemyAnimationController : EntityAnimationController
     private int _forwardHash;
     private int _verticalHash;
 
-    private string _attack1Tag;
-    private string _attack2Tag;
+    public string AttackTag { get; private set; } = "Attack";
+    public string HitTag { get; private set; } = "Hit";
+    public string DieTag { get; private set; } = "Die";
     
     public void Stun()
     {
@@ -74,15 +75,7 @@ public class EnemyAnimationController : EntityAnimationController
         SetFloat(_forwardHash, forward);
         SetFloat(_verticalHash, vertical);
     }
-
-    public float IsPlayAttack1()
-    {
-        return IsPlayAnimation(_attack1Tag, 0);
-    }
-    public float IsPlayAttack2()
-    {
-        return IsPlayAnimation(_attack2Tag, 0);
-    }
+    
 
     protected override void Awake()
     {

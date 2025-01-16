@@ -19,7 +19,9 @@ public class EnemyBehaviourTree : MonoBehaviour
     {
         ConditionalActionBtNode attackBtNode = new ConditionalActionBtNode(_controller.IsTargetInRange, _controller.Attack);
         ActionBtNode moveBtNode = new ActionBtNode(_controller.Chase);
-        SelectorBtNode selectorBtNode = new SelectorBtNode(new List<BTNode>() { attackBtNode, moveBtNode });
+        ActionBtNode hitBtNode = new ActionBtNode(_controller.Hit);
+        ActionBtNode dieBtNode = new ActionBtNode(_controller.Die);
+        SelectorBtNode selectorBtNode = new SelectorBtNode(new List<BTNode>() { dieBtNode, hitBtNode, attackBtNode, moveBtNode });
         _rootBtNode = selectorBtNode;
     }
 }

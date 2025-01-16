@@ -1,4 +1,16 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
+public enum EnemyState
+{
+    None,
+    EndAnimation,
+    InAnimation,
+    Hit,
+    Stun,
+    Die,
+}
 
 public class EnemyController : EntityController
 {
@@ -6,36 +18,31 @@ public class EnemyController : EntityController
     [SerializeField] protected Transform _target;
     [SerializeField] protected float _attackRange;
 
-    private bool _isAttacking;
-    private bool _isAttackEnd;
-    private bool _isStun;
-    private bool _isStunning;
-    private bool _isStunEnd;
-    private bool _isHit;
-    private bool _isHitting;
-    private bool _isHitEnd;
-    
+    protected EnemyState _state;
+
+    private bool _isAnimationEndTrigger;
     public override void Load()
     {
         base.Load();
         var _animationEventReceiver = gameObject.GetComponentInDirectChild<EnemyAnimationEventReceiver>();
-        _animationEventReceiver.OnEndAttackEvent += () => { _isAttackEnd = true; };
+        _animationEventReceiver.OnEndAnimationEvent += () => { _state = EnemyState.EndAnimation; };
     }
 
     public override void Init()
     {
         base.Init();
-        _isAttacking = false;
-        _isAttackEnd = false;
-        _isStun = false;
-        _isStunning = false;
-        _isStunEnd = false;
-        _isHit = false;
-        _isHitting = false;
-        _isHitEnd = false;
+        _state = EnemyState.None;
     }
 
-    public void Toward(Transform transform, float speed)
+    public void Hitted()
+    {
+        if (_state == EnemyState.Die || _state == EnemyState.Stun)
+            return;
+        _state = EnemyState.Hit;
+    } 
+    public void Dead()=> _state = EnemyState.Die;
+
+    public void MoveTowardsTarget(Transform transform, float speed)
     { 
         Vector3 targetPosition = transform.position;
         Vector3 moveDir = (targetPosition - this.transform.position).normalized;
@@ -46,33 +53,11 @@ public class EnemyController : EntityController
 
     public bool IsTargetInRange()
     {
+        if(_state == EnemyState.InAnimation)
+            return true;
         return this.transform.Distance(_target) < _attackRange;
     }
     
-    public NodeState Attack()
-    {
-        if (_isAttackEnd)
-        {
-            _isAttacking = false;
-            _isAttackEnd = false;
-            _animationController.StopAttack();
-            return NodeState.Success;
-        }
-        if (_isAttacking)
-        {
-            return NodeState.Running;
-        }
-        else
-        {
-            Vector3 targetPosition = transform.position;
-            LookAt(new Vector2(targetPosition.x,targetPosition.z));
-            _isAttacking = true;
-            int attackIndex =  RandomAttackSelect();
-            _animationController.Attack(attackIndex);
-            return NodeState.Running;
-        }
-    }
-
     protected int RandomAttackSelect(int attackCount = 2)
     {
         return Random.Range(0, attackCount);
@@ -80,53 +65,75 @@ public class EnemyController : EntityController
     
     public NodeState Chase()
     {
-        Toward(_target,1f);
+        MoveTowardsTarget(_target,1f);
         return NodeState.Success;
+    }
+    
+    public NodeState PerformAction(EnemyState requiredState, Action performAnimation, Action stopAnimation)
+    {
+        switch (_state)
+        {
+            case EnemyState.EndAnimation:
+                _state = EnemyState.None;
+                stopAnimation?.Invoke();
+                return NodeState.Success;
+
+            case EnemyState.InAnimation:
+                return NodeState.Running;
+
+            case var state when state == requiredState:
+                performAnimation?.Invoke();
+                _state = EnemyState.InAnimation;
+                return NodeState.Running;
+
+            default:
+                return NodeState.Failure;
+        }
+    }
+    
+    public NodeState Attack()
+    {
+        return PerformAction(
+            EnemyState.None, 
+            () => _animationController.Attack(0), 
+            () => _animationController.StopAttack());
     }
 
     public NodeState Stun()
     {
-        if (_isStunEnd)
-        {
-            _isStunEnd = false;
-            _isStun = false;
-            _isStunning = false;
-            _animationController.StopStun();
-            return NodeState.Success;
-        }
-        if (_isStunning)
-        {
-            return NodeState.Running;
-        }
-        if (_isStun)
-        {
-            _isStunning = true;
-            _animationController.Stun();
-            return NodeState.Running;
-        }
-        return NodeState.Failure;
+        return PerformAction(
+            EnemyState.Stun, 
+            () => _animationController.Stun(), 
+            () => _animationController.StopStun());
     }
 
     public NodeState Hit()
     {
-        if (_isHitEnd)
+        return PerformAction(
+            EnemyState.Hit, 
+            () => _animationController.Hit(), 
+            null);
+    }
+    
+    public NodeState Die()
+    {
+        return PerformAction(
+            EnemyState.Die, 
+            () => _animationController.Die(), 
+            null);
+    }
+
+    public NodeState IsInAnimation(string tag)
+    {
+        if (_animationController.IsPlayAnimation(tag) >= 1f)
         {
-            _isHitEnd = false;
-            _isHitting = false;
-            _isHit = false;
             return NodeState.Success;
         }
-        if (_isHitting)
+        else
         {
             return NodeState.Running;
         }
-        if (_isHit)
-        {
-            _isHit = false;
-            _animationController.Hit();
-            return NodeState.Running;
-        }
-        return NodeState.Failure;
+        
     }
     
     

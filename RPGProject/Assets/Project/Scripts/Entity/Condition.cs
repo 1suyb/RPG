@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Condition
@@ -7,9 +8,10 @@ public class Condition
     private int _currentValue;
     private int _passiveChangeValue;
 
-    public event Action<float> ChangeCondition;
-    public event Action ExhaustCondition;
-
+    public Action<float> OnChangeCondition;
+    public Action OnExhaustCondition;
+    public Action OnConsumeCondition;
+    public Action OnRecoveryCondition;
     public int CurrentValue
     {
         get => _currentValue;
@@ -17,12 +19,20 @@ public class Condition
         {
             if (_currentValue != value)
             {
-                ChangeCondition?.Invoke((float)_currentValue/(float)_maxValue);
+                OnChangeCondition?.Invoke((float)_currentValue/(float)_maxValue);
+                if (_currentValue < value)
+                {
+                    OnRecoveryCondition?.Invoke();
+                }
+                else
+                {
+                    OnConsumeCondition?.Invoke();
+                }
             }
             _currentValue = Mathf.Clamp(value, 0, _maxValue);
             if (_currentValue == 0)
             {
-                ExhaustCondition?.Invoke();
+                OnExhaustCondition?.Invoke();
             }
         }
     }
