@@ -117,10 +117,16 @@ public class EnemyController : EntityController
     
     public NodeState Die()
     {
-        return PerformAction(
+        NodeState state =  PerformAction(
             EnemyState.Die, 
             () => _animationController.Die(), 
             null);
+        if (state == NodeState.Success)
+        {
+            gameObject.SetActive(false);
+        }
+
+        return state;
     }
 
     public NodeState IsInAnimation(string tag)

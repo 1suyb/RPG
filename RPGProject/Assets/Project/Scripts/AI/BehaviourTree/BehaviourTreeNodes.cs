@@ -55,13 +55,14 @@ public class SequenceBtNode : CompositeBtNode
     {
         for (int i = _runningNodeIndex; i < _nodes.Count; i++)
         {
-            if (_nodes[i].Evaluate() == NodeState.Failure)
+            NodeState state = _nodes[i].Evaluate();
+            if (state == NodeState.Failure)
             {
                 _runningNodeIndex = 0;
                 return NodeState.Failure;
             }
 
-            if (_nodes[i].Evaluate() == NodeState.Running)
+            if (state == NodeState.Running)
             {
                 _runningNodeIndex = i;
                 return NodeState.Running;
@@ -83,13 +84,14 @@ public class SelectorBtNode : CompositeBtNode
     {
         for (int i = _runningNodeIndex; i < _nodes.Count; i++)
         {
-            if (_nodes[i].Evaluate() == NodeState.Running)
+            NodeState state = _nodes[i].Evaluate();
+            if (state == NodeState.Running)
             {
                 _runningNodeIndex = i;
                 return NodeState.Running;
             }
 
-            if (_nodes[i].Evaluate() == NodeState.Success)
+            if (state == NodeState.Success)
             {
                 _runningNodeIndex = 0;
                 return NodeState.Success;
