@@ -1,0 +1,202 @@
+{
+	"items" : [
+	{
+		"ID" : 101,
+		"Rarity" : 0,
+		"EquipmentType" : 0,
+		"ModelingKey" : 0,
+		"StatEffectID" : [
+			2
+		],
+		"MinValue" : [
+			0
+		],
+		"MaxValue" : [
+			2
+		],
+		"OptionCount" : 0,
+		"OptionPoolID" : 0,
+		"Level" : 0
+		},
+	{
+		"ID" : 201,
+		"Rarity" : 0,
+		"EquipmentType" : 1,
+		"ModelingKey" : 1,
+		"StatEffectID" : [
+			2
+		],
+		"MinValue" : [
+			0
+		],
+		"MaxValue" : [
+			2
+		],
+		"OptionCount" : 0,
+		"OptionPoolID" : 0,
+		"Level" : 0
+		},
+	{
+		"ID" : 301,
+		"Rarity" : 0,
+		"EquipmentType" : 2,
+		"ModelingKey" : 2,
+		"StatEffectID" : [
+			2
+		],
+		"MinValue" : [
+			0
+		],
+		"MaxValue" : [
+			2
+		],
+		"OptionCount" : 0,
+		"OptionPoolID" : 0,
+		"Level" : 0
+		},
+	{
+		"ID" : 401,
+		"Rarity" : 0,
+		"EquipmentType" : 3,
+		"ModelingKey" : 3,
+		"StatEffectID" : [
+			2
+		],
+		"MinValue" : [
+			0
+		],
+		"MaxValue" : [
+			2
+		],
+		"OptionCount" : 0,
+		"OptionPoolID" : 0,
+		"Level" : 0
+		},
+	{
+		"ID" : 501,
+		"Rarity" : 0,
+		"EquipmentType" : 4,
+		"ModelingKey" : 4,
+		"StatEffectID" : [
+			2
+		],
+		"MinValue" : [
+			0
+		],
+		"MaxValue" : [
+			2
+		],
+		"OptionCount" : 0,
+		"OptionPoolID" : 0,
+		"Level" : 0
+		},
+	{
+		"ID" : 601,
+		"Rarity" : 0,
+		"EquipmentType" : 5,
+		"ModelingKey" : 5,
+		"StatEffectID" : [
+			2
+		],
+		"MinValue" : [
+			0
+		],
+		"MaxValue" : [
+			2
+		],
+		"OptionCount" : 0,
+		"OptionPoolID" : 0,
+		"Level" : 0
+		},
+	{
+		"ID" : 701,
+		"Rarity" : 0,
+		"EquipmentType" : 6,
+		"ModelingKey" : 6,
+		"StatEffectID" : [
+			0
+		],
+		"MinValue" : [
+			0
+		],
+		"MaxValue" : [
+			2
+		],
+		"OptionCount" : 0,
+		"OptionPoolID" : 0,
+		"Level" : 0
+		},
+	{
+		"ID" : 801,
+		"Rarity" : 0,
+		"EquipmentType" : 7,
+		"ModelingKey" : 7,
+		"StatEffectID" : [
+			0
+		],
+		"MinValue" : [
+			0
+		],
+		"MaxValue" : [
+			2
+		],
+		"OptionCount" : 0,
+		"OptionPoolID" : 0,
+		"Level" : 0
+		},
+	{
+		"ID" : 901,
+		"Rarity" : 0,
+		"EquipmentType" : 8,
+		"ModelingKey" : 8,
+		"StatEffectID" : [
+			0
+		],
+		"MinValue" : [
+			0
+		],
+		"MaxValue" : [
+			2
+		],
+		"OptionCount" : 0,
+		"OptionPoolID" : 0,
+		"Level" : 0
+		},
+	{
+		"ID" : 1001,
+		"Rarity" : 0,
+		"EquipmentType" : 9,
+		"ModelingKey" : 9,
+		"StatEffectID" : [
+			0
+		],
+		"MinValue" : [
+			0
+		],
+		"MaxValue" : [
+			2
+		],
+		"OptionCount" : 0,
+		"OptionPoolID" : 0,
+		"Level" : 0
+		},
+	{
+		"ID" : 1101,
+		"Rarity" : 0,
+		"EquipmentType" : 10,
+		"ModelingKey" : 10,
+		"StatEffectID" : [
+			0
+		],
+		"MinValue" : [
+			0
+		],
+		"MaxValue" : [
+			2
+		],
+		"OptionCount" : 0,
+		"OptionPoolID" : 0,
+		"Level" : 0
+		}
+	]
+}

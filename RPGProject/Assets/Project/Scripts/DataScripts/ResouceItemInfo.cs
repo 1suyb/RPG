@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemInfo : LoadedInfoBase
+public class ResouceItemInfo : LoadedInfoBase
 {
      /// <summary>
      /// 아이템 이름
@@ -39,13 +39,5 @@ public class ItemInfo : LoadedInfoBase
      /// 버리기 가능 여부
      /// </summary>
     public bool Destory;
-     /// <summary>
-     /// 스택할수있는
-     /// </summary>
-    public bool Stackable;
-     /// <summary>
-     /// 스택최대치
-     /// </summary>
-    public int MaxCount;
 }
 

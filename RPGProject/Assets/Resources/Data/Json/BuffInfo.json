@@ -1,0 +1,40 @@
+{
+	"items" : [
+	{
+		"ID" : 11,
+		"Name" : "작은회복약",
+		"Description" : "hp를 약간 회복시켜줍니다",
+		"EffectTableID" : [
+			15
+		],
+		"Value" : [
+			5
+		],
+		"Duration" : 0
+		},
+	{
+		"ID" : 12,
+		"Name" : "작은물리공격력증가포션",
+		"Description" : "공격력을 약간 올려줍니다.",
+		"EffectTableID" : [
+			11
+		],
+		"Value" : [
+			1
+		],
+		"Duration" : 60
+		},
+	{
+		"ID" : 13,
+		"Name" : "작은 회복 알약",
+		"Description" : "일정시간동안 HP를 조금씩 회복시켜 줍니다.",
+		"EffectTableID" : [
+			15
+		],
+		"Value" : [
+			1
+		],
+		"Duration" : 30
+		}
+	]
+}

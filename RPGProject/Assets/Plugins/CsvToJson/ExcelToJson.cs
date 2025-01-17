@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Linq;
 using System.Text;
 using ExcelDataReader;
 using UnityEngine;
@@ -15,14 +14,99 @@ namespace ExceltoJson
         private string _classSavePath;
         private string _enumFileName;
         
+        
         private Dictionary<string,Dictionary<string,int>> _enumData;
 
-        public ExcelToJson(string folderPath,string jsonSavePath, string classSavePath, string enumFileName = "CSVEnums")
+        public ExcelToJson(string folderPath,string jsonSavePath, string classSavePath, string enumFileName = "InfoEnum")
         {
             _folderPath = folderPath;
             _jsonSavePath = jsonSavePath;
             _classSavePath = classSavePath;
             _enumFileName = enumFileName;
+        }
+
+        public void CreateClass(List<string> datapaths)
+        {
+            if (CheckPath(_classSavePath))
+            {
+                CreateFolder(_classSavePath);
+            }
+
+            if (CheckPath(_jsonSavePath))
+            {
+                CreateFolder(_jsonSavePath);
+            }
+            
+            foreach(string csvfilepath in datapaths)
+            {
+                string fileName = Path.GetFileNameWithoutExtension(csvfilepath);
+                string classSavePath = ClassSaveFilePath(fileName);
+                string jsonSavePath = JsonSaveFilePath(fileName);
+                if(fileName == _enumFileName)
+                {
+                    ProcessingEnum(csvfilepath,classSavePath,jsonSavePath);
+                }
+            }
+
+            foreach (var filePath in datapaths)
+            {
+                if (filePath.Contains("meta"))
+                {
+                    continue;
+                }
+                string fileName = Path.GetFileNameWithoutExtension(filePath);
+                string classSavePath = ClassSaveFilePath(fileName);
+                string jsonSavePath = JsonSaveFilePath(fileName);
+                if(fileName != _enumFileName)
+                {
+                    ProcessingClass(filePath,classSavePath,jsonSavePath);
+                }
+            }
+            Debug.Log("Create Class Complete");
+        }
+
+        public void CreateJson(List<string> datapaths)
+        {
+            if (CheckPath(_classSavePath))
+            {
+                CreateFolder(_classSavePath);
+            }
+
+            if (CheckPath(_jsonSavePath))
+            {
+                CreateFolder(_jsonSavePath);
+            }
+            
+            foreach(string csvfilepath in datapaths)
+            {
+                if (csvfilepath.Contains("meta"))
+                {
+                    continue;
+                }
+                string fileName = Path.GetFileNameWithoutExtension(csvfilepath);
+                string classSavePath = ClassSaveFilePath(fileName);
+                string jsonSavePath = JsonSaveFilePath(fileName);
+                if(fileName == _enumFileName)
+                {
+                    ProcessingEnum(csvfilepath,classSavePath,jsonSavePath);
+                }
+            }
+
+            foreach (var filePath in datapaths)
+            {
+                if (filePath.Contains("meta"))
+                {
+                    continue;
+                }
+                string fileName = Path.GetFileNameWithoutExtension(filePath);
+                string classSavePath = ClassSaveFilePath(fileName);
+                string jsonSavePath = JsonSaveFilePath(fileName);
+                if(fileName != _enumFileName)
+                {
+                    ProcessingJson(filePath,jsonSavePath);
+                }
+            }
+            Debug.Log("Create Json Complete");
         }
         
         public void Convert()
@@ -82,6 +166,69 @@ namespace ExceltoJson
             List<string> csvFiles = new List<string>();
             string[] files = Directory.GetFiles(folderPath);
             return files;
+        }
+
+        private void ProcessingEnum(string filePath, string classSavePath, string jsonSavePath)
+        {
+            var stream = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+            var reader = ExcelReaderFactory.CreateReader(stream);
+            try
+            {
+                DataSet result = reader.AsDataSet();
+                ConvertToEnum(result.Tables[0], classSavePath);
+            }
+            catch (IOException e)
+            {
+                Debug.LogError(e);
+            }
+            finally
+            {
+                reader.Close();
+                stream.Close();
+            }
+        }
+
+        private void ProcessingClass(string filePath, string classSavePath, string jsonSavePath)
+        {
+            var stream = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+            var reader = ExcelReaderFactory.CreateReader(stream);
+            try
+            {
+                DataSet result = reader.AsDataSet();
+                string fileName = Path.GetFileNameWithoutExtension(filePath);
+                ConvertToClass(fileName, result.Tables[0], classSavePath, jsonSavePath);
+                
+            }
+            catch (IOException e)
+            {
+                Debug.LogError(e);
+            }
+            finally
+            {
+                reader.Close();
+                stream.Close();
+            }
+        }
+
+        private void ProcessingJson(string filePath, string jsonSavePath)
+        {
+            var stream = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+            var reader = ExcelReaderFactory.CreateReader(stream);
+            try
+            {
+                DataSet result = reader.AsDataSet();
+                string fileName = Path.GetFileNameWithoutExtension(filePath);
+                ConvertToJson(fileName, result.Tables[0], jsonSavePath);
+            }
+            catch (IOException e)
+            {
+                Debug.LogError(e);
+            }
+            finally
+            {
+                reader.Close();
+                stream.Close();
+            }
         }
 
         private void Processing(string filePath, string classSavePath, string jsonSavePath, bool isEnum = false)
@@ -150,7 +297,7 @@ namespace ExceltoJson
             sb.AppendLine("using System.Collections.Generic;");
             sb.AppendLine("using UnityEngine;");
             sb.AppendLine();
-            sb.AppendLine($"public class {className} : LoadedDataBase");
+            sb.AppendLine($"public class {className} : LoadedInfoBase");
             sb.AppendLine("{");
             DataRow headers = file.Rows[0];
             DataRow types = file.Rows[1];
@@ -230,6 +377,11 @@ namespace ExceltoJson
 
                             for (int k = 0; k < listData.Length; k++)
                             {
+                                if (!_enumData[type].ContainsKey(listData[k]))
+                                {
+                                    Debug.LogError($"{className} 파일의 {listData[k]} enum 데이터가 없습니다.");
+                                    return;
+                                }
                                 sb.Append($"\t\t\t{_enumData[type][listData[k]]}");
                                 if (k != listData.Length - 1)
                                 {

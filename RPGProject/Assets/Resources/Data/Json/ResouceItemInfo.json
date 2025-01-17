@@ -10,9 +10,7 @@
 		"ResourceID" : 0,
 		"Price" : 1,
 		"Sell" : true,
-		"Destory" : false,
-		"Stackable" : false,
-		"MaxCount" : 1
+		"Destory" : false
 		},
 	{
 		"ID" : 2,
@@ -24,9 +22,7 @@
 		"ResourceID" : 0,
 		"Price" : 1,
 		"Sell" : true,
-		"Destory" : false,
-		"Stackable" : false,
-		"MaxCount" : 1
+		"Destory" : false
 		},
 	{
 		"ID" : 3,
@@ -38,9 +34,7 @@
 		"ResourceID" : 0,
 		"Price" : 1,
 		"Sell" : true,
-		"Destory" : false,
-		"Stackable" : false,
-		"MaxCount" : 1
+		"Destory" : false
 		},
 	{
 		"ID" : 4,
@@ -52,9 +46,7 @@
 		"ResourceID" : 0,
 		"Price" : 1,
 		"Sell" : true,
-		"Destory" : false,
-		"Stackable" : false,
-		"MaxCount" : 1
+		"Destory" : false
 		},
 	{
 		"ID" : 5,
@@ -66,9 +58,7 @@
 		"ResourceID" : 0,
 		"Price" : 1,
 		"Sell" : true,
-		"Destory" : false,
-		"Stackable" : false,
-		"MaxCount" : 1
+		"Destory" : false
 		},
 	{
 		"ID" : 6,
@@ -80,9 +70,7 @@
 		"ResourceID" : 0,
 		"Price" : 1,
 		"Sell" : true,
-		"Destory" : false,
-		"Stackable" : false,
-		"MaxCount" : 1
+		"Destory" : false
 		},
 	{
 		"ID" : 7,
@@ -94,9 +82,7 @@
 		"ResourceID" : 0,
 		"Price" : 1,
 		"Sell" : true,
-		"Destory" : false,
-		"Stackable" : false,
-		"MaxCount" : 1
+		"Destory" : false
 		},
 	{
 		"ID" : 8,
@@ -108,9 +94,7 @@
 		"ResourceID" : 0,
 		"Price" : 1,
 		"Sell" : true,
-		"Destory" : false,
-		"Stackable" : false,
-		"MaxCount" : 1
+		"Destory" : false
 		},
 	{
 		"ID" : 9,
@@ -122,9 +106,7 @@
 		"ResourceID" : 0,
 		"Price" : 1,
 		"Sell" : true,
-		"Destory" : false,
-		"Stackable" : false,
-		"MaxCount" : 1
+		"Destory" : false
 		},
 	{
 		"ID" : 10,
@@ -136,9 +118,7 @@
 		"ResourceID" : 0,
 		"Price" : 1,
 		"Sell" : true,
-		"Destory" : false,
-		"Stackable" : false,
-		"MaxCount" : 1
+		"Destory" : false
 		},
 	{
 		"ID" : 11,
@@ -150,51 +130,7 @@
 		"ResourceID" : 0,
 		"Price" : 1,
 		"Sell" : true,
-		"Destory" : false,
-		"Stackable" : false,
-		"MaxCount" : 1
-		},
-	{
-		"ID" : 12,
-		"Name" : "작은회복약",
-		"Description" : "작은회복약",
-		"ItemType" : 1,
-		"EquipID" : 0,
-		"ComsumeID" : 101,
-		"ResourceID" : 0,
-		"Price" : 1,
-		"Sell" : true,
-		"Destory" : false,
-		"Stackable" : true,
-		"MaxCount" : 10
-		},
-	{
-		"ID" : 13,
-		"Name" : "작은물리공격력증가포션",
-		"Description" : "작은물리공격력증가포션",
-		"ItemType" : 1,
-		"EquipID" : 0,
-		"ComsumeID" : 201,
-		"ResourceID" : 0,
-		"Price" : 1,
-		"Sell" : true,
-		"Destory" : false,
-		"Stackable" : true,
-		"MaxCount" : 10
-		},
-	{
-		"ID" : 14,
-		"Name" : "작은 회복 알약",
-		"Description" : "작은 회복 알약",
-		"ItemType" : 1,
-		"EquipID" : 0,
-		"ComsumeID" : 301,
-		"ResourceID" : 0,
-		"Price" : 1,
-		"Sell" : true,
-		"Destory" : false,
-		"Stackable" : true,
-		"MaxCount" : 10
+		"Destory" : false
 		}
 	]
 }

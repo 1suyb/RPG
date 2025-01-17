@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
 
-public class DataLoader<T> where T : LoadedDataBase
+public class InfoLoader<T> where T : LoadedInfoBase
 {
     private List<T> _itemList = new List<T>();
     private Dictionary<int, T> _itemDict = new Dictionary<int, T>();
@@ -13,7 +13,7 @@ public class DataLoader<T> where T : LoadedDataBase
     {
         public List<T> items;
     }
-    public DataLoader()
+    public InfoLoader()
     {
         string jsonData = Resources.Load<TextAsset>($"Data/Json/{typeof(T).Name}").text;
         Wrapper wrapper = JsonConvert.DeserializeObject<Wrapper>(jsonData.Trim());
