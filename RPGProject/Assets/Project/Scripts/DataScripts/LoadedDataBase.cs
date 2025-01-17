@@ -1,4 +1,4 @@
 public class LoadedDataBase
 {
-    public int id;
+    public int ID;
 }

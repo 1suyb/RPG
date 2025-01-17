@@ -196,6 +196,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8622994783728752763, guid: 7e7ba6d033f238346987597879833580,
+        type: 3}
+      propertyPath: _target
+      value: 
+      objectReference: {fileID: 1759133542}
+    - target: {fileID: 8622994783728752763, guid: 7e7ba6d033f238346987597879833580,
+        type: 3}
+      propertyPath: _attackRange
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -729,6 +739,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8622994783728752763, guid: 7e7ba6d033f238346987597879833580,
+        type: 3}
+      propertyPath: _target
+      value: 
+      objectReference: {fileID: 1759133542}
+    - target: {fileID: 8622994783728752763, guid: 7e7ba6d033f238346987597879833580,
+        type: 3}
+      propertyPath: _attackRange
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -873,7 +893,7 @@ MonoBehaviour:
   <TargetLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 128
-  <Target>k__BackingField: {fileID: 0}
+  <Target>k__BackingField: {fileID: 1216114301}
 --- !u!143 &1759133541
 CharacterController:
   m_ObjectHideFlags: 0

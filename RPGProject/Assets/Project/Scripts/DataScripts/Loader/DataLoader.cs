@@ -20,7 +20,7 @@ public class DataLoader<T> where T : LoadedDataBase
         _itemList = wrapper.items;
         foreach (T item in _itemList)
         {
-            int id = item.id;
+            int id = item.ID;
             _itemDict.Add(id, item);
         }
     }

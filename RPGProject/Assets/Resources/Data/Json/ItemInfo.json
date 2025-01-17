@@ -1,0 +1,25 @@
+{
+	"items" : [
+	{
+		"ID" : 101,
+		"Name" : "활",
+		"Description" : "활이에요",
+		"ItemType" : 0,
+		"OptionID" : 101
+		},
+	{
+		"ID" : 201,
+		"Name" : "작은 물약",
+		"Description" : "물약이에요",
+		"ItemType" : 1,
+		"OptionID" : 
+		},
+	{
+		"ID" : 301,
+		"Name" : "나뭇가지",
+		"Description" : "작은 나뭇가지에요",
+		"ItemType" : 2,
+		"OptionID" : 
+		}
+	]
+}

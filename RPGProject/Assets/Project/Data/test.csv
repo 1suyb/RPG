@@ -1,4 +1,0 @@
-﻿id,test1,test2,test3,test4,test5,test6,test7,test8
-int,float,bool,List<int>,Enum<EnumType>,List<Enum<EnumType>>,Vector3,string,Vector2
-설명,설명,설명,설명,설명,설명,설명,설명,설명
-0,0.1,TRUE,1/2/3/4/5,TEST,TEST/TEST2,1/2/3,반가워,1/2
