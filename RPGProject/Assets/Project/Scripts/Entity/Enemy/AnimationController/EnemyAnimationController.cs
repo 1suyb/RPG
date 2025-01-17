@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyAnimationController : EntityAnimationController
@@ -9,7 +6,7 @@ public class EnemyAnimationController : EntityAnimationController
     private string _isBattle = "IsBattle";
     private string _isAttack = "IsAttack";
     private string _isMove = "IsMove";
-    public string _attackNumber = "AttackNumber";
+    private string _attackNumber = "AttackNumber";
     private string _hit = "Hit";
     private string _die = "Die";
     private string _forward = "Forward";

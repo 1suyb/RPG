@@ -22,7 +22,7 @@ public class EntityController : MonoBehaviour
     protected virtual void Awake()
     {
         Load();
-        Init();
+        InitOnActivate();
     }
 
     public virtual void Load()
@@ -31,7 +31,7 @@ public class EntityController : MonoBehaviour
             _characterController = GetComponent<CharacterController>();
     }
 
-    public virtual void Init()
+    public virtual void InitOnActivate()
     {
         _dampingVelocity = new Vector3(0,0,0);
         _impact = new Vector3(0,0,0);

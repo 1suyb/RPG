@@ -5,9 +5,13 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDamageable, ILoadable
 {
+    [field : Header("Status")]
     [field:SerializeField] public StatHandler StatHandler { get; private set; }
     [field:SerializeField] public EnemyConditionHandler ConditionHandler { get; private set; }
+    [field:Header("Action")]
     [field:SerializeField] public EnemyController Controller { get; private set; }
+    [field:SerializeField] public EnemyAI AI { get; private set; }
+    
     [field:SerializeField] public AttackData CurrentAttackData { get; private set; }
     [field:SerializeField] public LayerMask TargetLayer { get; private set; }
     [field:SerializeField] public Transform Target { get; private set; }
@@ -42,7 +46,7 @@ public class Enemy : MonoBehaviour, IDamageable, ILoadable
 
     public void Die()
     {
-        Controller.Dead();
+        AI.SetState(EnemyState.Die);
     }
 
     public void TakeDamage(AttackHandler attackHandler)
@@ -50,7 +54,7 @@ public class Enemy : MonoBehaviour, IDamageable, ILoadable
         int damage = attackHandler.CalculateDamage(CurrentStat);
         Debug.Log($"나맞앗어 {damage}");
         ConditionHandler.TakeDamage(damage);
-        Controller.Hitted();
+        AI.SetState(EnemyState.Hit);
         
     }
 

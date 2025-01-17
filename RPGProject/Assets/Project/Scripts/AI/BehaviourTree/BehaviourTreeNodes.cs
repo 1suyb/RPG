@@ -82,22 +82,19 @@ public class SelectorBtNode : CompositeBtNode
 
     public override NodeState Evaluate()
     {
-        for (int i = _runningNodeIndex; i < _nodes.Count; i++)
+        for (int i = 0; i < _nodes.Count; i++)
         {
             NodeState state = _nodes[i].Evaluate();
             if (state == NodeState.Running)
             {
-                _runningNodeIndex = i;
                 return NodeState.Running;
             }
 
             if (state == NodeState.Success)
             {
-                _runningNodeIndex = 0;
                 return NodeState.Success;
             }
         }
-        _runningNodeIndex = 0;
         return NodeState.Failure;
     }
 }
@@ -167,25 +164,72 @@ public class RepeatDecorator : BTNode
         return NodeState.Success;
     }
 }
+public class InverterDecorator : BTNode
+{
+    protected BTNode _node;
+
+    public InverterDecorator(BTNode node)
+    {
+        _node = node;
+    }
+    public NodeState Evaluate()
+    {
+        NodeState result = _node.Evaluate();
+        if (result == NodeState.Success)
+        {
+            return NodeState.Failure;
+        }
+        if (result == NodeState.Failure)
+        {
+            return NodeState.Success;
+        }
+        return NodeState.Running;
+    }
+}
 
 public class ConditionalDecorator : BTNode
 {
     protected Func<bool> _condition;
-    protected BTNode BtNode;
+    protected BTNode _trueNode;
+    protected BTNode _falseNode;
 
-    public ConditionalDecorator(Func<bool> condition, BTNode btNode)
+    public ConditionalDecorator(Func<bool> condition, BTNode trueNode, BTNode falseNode = null)
     {
         _condition = condition;
-        BtNode = btNode;
-    } 
+        _trueNode = trueNode;
+        _falseNode = falseNode;
+    }
     public NodeState Evaluate()
     {
         if (_condition())
         {
-            return BtNode.Evaluate();
+            return _trueNode.Evaluate();
         }
+        else
+        {
+            if(_falseNode != null)
+                return _falseNode.Evaluate();
+            return NodeState.Failure;
+        }
+    }
+}
 
-        return NodeState.Failure;
+public class SuccessDecorator : BTNode
+{
+    protected BTNode _node;
+
+    public SuccessDecorator(BTNode node)
+    {
+        _node = node;
+    }
+    public NodeState Evaluate()
+    {
+        NodeState result = _node.Evaluate();
+        if (result == NodeState.Running)
+        {
+            return NodeState.Running;
+        }
+        return NodeState.Success;
     }
 }
 
