@@ -30,29 +30,34 @@ public class Inventory
     
     private int AddStackableItem(ItemInfo info, int count)
     {
-        int index = FindItemIndex(info.ID);
-        int remainCount = 0;
-        if (index != 0)
+        int remainCount = count;
+        List<int> indices = FindItemIndices(info.ID);
+        if (indices.Count >0)
         {
-            remainCount= _itemList[index].AddCount(count);
-        }
-        else
-        {
-            if(_isFull)
+            for(int i = 0; i < indices.Count; i++)
             {
-                return count;
-            }
-            else
-            {
-                ItemData newItem = _itemFactory.CreateItem(info.ID, count);
-                remainCount = newItem.AddCount(count);
-                _itemList.Add(newItem);
+                if(_itemList[indices[i]].IsFull)
+                {
+                    continue;
+                }
+                remainCount = count + _itemList[indices[i]].Count - info.MaxCount;
+                _itemList[indices[i]].AddCount(count);
             }
         }
-        if(remainCount > 0)
+        if(_isFull)
         {
+            return count;
+        }
+        if(remainCount <= 0)
+        {
+            return 0;
+        }
+        ItemData newItem = _itemFactory.CreateItem(info.ID, remainCount);
+        _itemList.Add(newItem);
+        remainCount -= info.MaxCount;
+        
+        if(remainCount > 0 )
             remainCount = AddStackableItem(info, remainCount);
-        }
         return remainCount;
     }
     private int AddNonStackableItem(ItemInfo info, int count)
@@ -69,9 +74,9 @@ public class Inventory
             return 0;
         }
     }
-    private int FindItemIndex(int infoID)
+    private int FindItemIndex(int infoID, int startIndex = 0)
     {
-        for (int i = 0; i < _itemList.Count; i++)
+        for (int i = startIndex; i < _itemList.Count; i++)
         {
             if (_itemList[i].InfoID == infoID)
             {
@@ -79,6 +84,18 @@ public class Inventory
             }
         }
         return -1;
+    }
+    private List<int> FindItemIndices(int infoID)
+    {
+        List<int> indices = new List<int>();
+        for (int i = 0; i < _itemList.Count; i++)
+        {
+            if (_itemList[i].InfoID == infoID)
+            {
+                indices.Add(i);
+            }
+        }
+        return indices;
     }
     public void RemoveItem(int index, int count)
     {

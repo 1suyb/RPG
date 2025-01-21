@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Manager;
 using UnityEngine;
@@ -17,6 +18,7 @@ public class InventoryController : MonoBehaviour
         _uiInventory.InitOnCreate(this);
         _openInventoryEvent.OnInventoryInputEvent += OpenInventory;
     }
+    
 
     public void OpenInventory()
     {

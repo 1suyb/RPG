@@ -12,7 +12,7 @@ public class UIInventorySlot : UISlot
         set
         {
             _count = value;
-            _countText.text = _count == 0 ? "" : _count.ToString();
+            _countText.text = _count <= 1 ? "" : _count.ToString();
         }
     }
 

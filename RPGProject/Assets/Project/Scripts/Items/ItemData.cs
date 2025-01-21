@@ -11,41 +11,35 @@ public class ItemData
     [JsonIgnore] public int MaxCount => ItemInfo.MaxCount;
     [JsonIgnore] public ItemType ItemType  => ItemInfo.ItemType;
     
-    public int Count { get; private set; }
+    private int _count;
+    [JsonIgnore] public int Count
+    {
+        get => _count;
+        set => _count = IsStackable ? Mathf.Clamp(value, 0, MaxCount) : 1;
+    }
     public Sprite Sprite { get; private set; }
+    
+    public bool IsFull => Count >= MaxCount;
     
     public ItemData(ItemInfo info, int count)
     {
         InfoID = info.ID;
         ItemInfo = info;
         Count = count;
-        //Sprite = Managers.Resource.Load<Sprite>(info.SpritePath);
+        string spritePath = ResourcePath.Sprite.ItemSprite(info.ID.ToString());
+        Sprite = ResourceManager.Load<Sprite>(spritePath);
     }
     
-    public int AddCount(int count)
+    public void AddCount(int count)
     {
         if(count < 0)
         {
-            return 0 ;
+            return ;
         }
-        int remainCount = 0;
         if (IsStackable)
         {
-            if (Count + count > MaxCount)
-            {
-                remainCount = Count + count - MaxCount;
-                Count = MaxCount;
-            }
-            else
-            {
-                Count += count;
-            }
+            Count += count;
         }
-        else
-        {
-            Count = count;
-        }
-        return remainCount;
     }
     
     public int RemoveCount(int count)
