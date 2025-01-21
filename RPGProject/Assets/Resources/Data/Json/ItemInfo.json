@@ -195,6 +195,34 @@
 		"Destory" : false,
 		"Stackable" : true,
 		"MaxCount" : 10
+		},
+	{
+		"ID" : 15,
+		"Name" : "박쥐의날개",
+		"Description" : "박쥐의날개",
+		"ItemType" : 2,
+		"EquipID" : 0,
+		"ComsumeID" : 0,
+		"ResourceID" : 101,
+		"Price" : 1,
+		"Sell" : true,
+		"Destory" : true,
+		"Stackable" : true,
+		"MaxCount" : 99
+		},
+	{
+		"ID" : 16,
+		"Name" : "거북이등껍질",
+		"Description" : "거북이등껍질",
+		"ItemType" : 2,
+		"EquipID" : 0,
+		"ComsumeID" : 0,
+		"ResourceID" : 102,
+		"Price" : 1,
+		"Sell" : true,
+		"Destory" : true,
+		"Stackable" : true,
+		"MaxCount" : 99
 		}
 	]
 }

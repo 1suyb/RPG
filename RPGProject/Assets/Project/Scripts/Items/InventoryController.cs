@@ -7,6 +7,8 @@ public class InventoryController : MonoBehaviour
     private Inventory _inventory;
     private UIInventory _uiInventory;
     [SerializeField] private InputEventListenerSO _openInventoryEvent;
+    
+    private bool _isInventoryUIOpen = false;
 
     private void Awake()
     {
@@ -14,13 +16,20 @@ public class InventoryController : MonoBehaviour
         _uiInventory = UIManager.Instance.Get<UIInventory>(UIType.Inventory);
         _uiInventory.InitOnCreate(this);
         _openInventoryEvent.OnInventoryInputEvent += OpenInventory;
-        
     }
 
     public void OpenInventory()
     {
-        UIManager.Instance.Open<UIInventory>(UIType.Inventory);
-        UpdateUI();
+        if (!_isInventoryUIOpen)
+        {
+            UIManager.Instance.Open<UIInventory>(UIType.Inventory);
+            UpdateUI();
+        }
+        else
+        {
+            UIManager.Instance.Close<UIInventory>(UIType.Inventory);
+        }
+        _isInventoryUIOpen = !_isInventoryUIOpen;
     }
     
     public void ArrayAll()
@@ -43,9 +52,9 @@ public class InventoryController : MonoBehaviour
         //UpdateUI(resources);
     }
 
-    public void AddItem(ItemData item)
+    public void AddItem(ItemInfo item, int count)
     {
-        int remainCount = _inventory.AddItem(item);
+        int remainCount = _inventory.AddItem(item, count);
         UpdateUI();
         if (remainCount > 0)
         {

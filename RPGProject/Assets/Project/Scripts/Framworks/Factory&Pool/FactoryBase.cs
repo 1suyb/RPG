@@ -67,7 +67,15 @@ public class GameObjectFactoryBase<T> where T : Component
     }
 }
 
-public class Factory<T> where T : class
+public class Factory<T,R> where T : LoadedInfoBase
 {
-    
+    private InfoLoader<T> _loader;
+    public Factory()
+    {
+    }
+
+    public virtual R Create(int id)
+    {
+        return default;
+    }
 }

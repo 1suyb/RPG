@@ -6,17 +6,31 @@ namespace Manager
 {
     public class InfoManager : IManager
     {
-        public InfoLoader<ItemInfo> ItemLoader { get; private set; }
-        public InfoLoader<EquipItemInfo> EquipItemLoader { get; private set; }
+        public ItemInfoLoader ItemInfoLoader { get; private set; }
         public void InitOnCreate()
         {
-            ItemLoader = new InfoLoader<ItemInfo>();
-            EquipItemLoader = new InfoLoader<EquipItemInfo>();
+            ItemInfoLoader = new ItemInfoLoader();
         }
 
         public void Release()
         {
             throw new System.NotImplementedException();
+        }
+    }
+
+    public class ItemInfoLoader
+    {
+        public InfoLoader<ItemInfo> ItemLoader { get; private set; }
+        public InfoLoader<EquipItemInfo> EquipItemLoader { get; private set; }
+        public InfoLoader<ConsumeItemInfo> ConsumeItemLoader { get; private set; }
+        public InfoLoader<MaterialItemInfo> MaterialItemLoader { get; private set; }
+        
+        public ItemInfoLoader()
+        {
+            ItemLoader = new InfoLoader<ItemInfo>();
+            EquipItemLoader = new InfoLoader<EquipItemInfo>();
+            ConsumeItemLoader = new InfoLoader<ConsumeItemInfo>();
+            MaterialItemLoader = new InfoLoader<MaterialItemInfo>();
         }
     }
 

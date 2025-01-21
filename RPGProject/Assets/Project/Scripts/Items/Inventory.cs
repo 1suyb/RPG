@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class Inventory
 {
+    private ItemFactory _itemFactory;
     private List<ItemData> _itemList = new List<ItemData>();
     public List<ItemData> ItemList => _itemList;
     private int _maxCount = 20;
@@ -12,63 +13,58 @@ public class Inventory
     public Inventory()
     {
         _itemList = new List<ItemData>();
+        _itemFactory = Managers.FactoryManager.ItemFactory;
     }
-    public int AddItem(ItemData item)
+    
+    public int AddItem(ItemInfo item, int count)
     {
-        if (item.IsStackable)
+        if (item.Stackable)
         {
-            return AddStackableItem(item);
+            return AddStackableItem(item, count);
         }
         else
         {
-            return AddNonStackableItem(item);
+            return AddNonStackableItem(item,count);
         }
     }
     
-    private int AddStackableItem(ItemData item)
+    private int AddStackableItem(ItemInfo info, int count)
     {
-        int index = FindItemIndex(item.InfoID);
+        int index = FindItemIndex(info.ID);
         int remainCount = 0;
-        if (index < 0)
+        if (index != 0)
         {
-            ItemData newItem = new ItemData(item.InfoID);
-            remainCount = newItem.AddCount(item.Count);
-            _itemList.Add(newItem);
-
+            remainCount= _itemList[index].AddCount(count);
         }
         else
         {
-            remainCount= _itemList[index].AddCount(item.Count);
-        }
-        
-        if (remainCount > 0)
-        {
-            if (_isFull)
+            if(_isFull)
             {
-                return remainCount;
+                return count;
             }
             else
             {
-                ItemData newItem = new ItemData(item.InfoID);
-                remainCount = newItem.AddCount(remainCount);
+                ItemData newItem = _itemFactory.CreateItem(info.ID, count);
+                remainCount = newItem.AddCount(count);
                 _itemList.Add(newItem);
-                item.SetCount(remainCount);
-                AddStackableItem(item);
-
             }
         }
-        return 0;
+        if(remainCount > 0)
+        {
+            remainCount = AddStackableItem(info, remainCount);
+        }
+        return remainCount;
     }
-    private int AddNonStackableItem(ItemData item)
+    private int AddNonStackableItem(ItemInfo info, int count)
     {
         if (_isFull)
         {
-            return item.Count;
+            return count;
         }
         else
         {
-            ItemData newItem = new ItemData(item.InfoID);
-            newItem.AddCount(item.Count);
+            ItemData newItem = _itemFactory.CreateItem(info.ID, count);
+            newItem.AddCount(count);
             _itemList.Add(newItem);
             return 0;
         }

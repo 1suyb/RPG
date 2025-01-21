@@ -2,7 +2,7 @@ public enum ItemType
 {
 Equipment = 0,
 Consume = 1,
-Resource = 2,
+Material = 2,
 }
 
 public enum EquipType

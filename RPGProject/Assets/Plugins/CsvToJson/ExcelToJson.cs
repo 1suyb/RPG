@@ -310,7 +310,7 @@ namespace ExceltoJson
             for (int i = 0; i < headers.ItemArray.Length; i++)
             {
                 string type = types.ItemArray[i].ToString();
-                if (headers[i].ToString() == "ID")
+                if (headers[i].ToString() == "ID" || headers[i].ToString().Contains("*")) // *표시가 있는 열은 무시
                 {
                     continue;
                 }
@@ -353,6 +353,7 @@ namespace ExceltoJson
             for (int i = 3; i < file.Rows.Count; i++)
             {
                 DataRow data = file.Rows[i];
+
                 if(data.ItemArray.Length != headers.ItemArray.Length)
                 {
                     Debug.LogError($"{className} 파일의 {i}번째 줄이 데이터와 Header의 길이가 다릅니다.");
@@ -361,6 +362,10 @@ namespace ExceltoJson
                 sb.AppendLine("\t{");
                 for (int j = 0; j < headers.ItemArray.Length; j++)
                 {
+                    if (headers[j].ToString().Contains("*"))    // *표시가 있는 열은 무시
+                    {
+                        continue;
+                    }
                     string type = types[j].ToString();
                     if (type.Contains("List<"))
                     {

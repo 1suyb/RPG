@@ -1,8 +1,10 @@
+using Manager;
 using Newtonsoft.Json;
 using UnityEngine;
 
 public class ItemData
 {
+    public int ID { get; private set; }
     public int InfoID { get; private set; }
     [JsonIgnore] public ItemInfo ItemInfo { get; private set; }
     [JsonIgnore] public bool IsStackable => ItemInfo.Stackable;
@@ -10,66 +12,34 @@ public class ItemData
     [JsonIgnore] public ItemType ItemType  => ItemInfo.ItemType;
     
     public int Count { get; private set; }
-
-    public ItemData(int infoID, int count = 0)
-    {
-        InfoID = infoID;
-        ItemInfo = Managers.InfoManager.ItemLoader.GetItem(infoID);
-        Count = count;
-    }
-
     public Sprite Sprite { get; private set; }
+    
+    public ItemData(ItemInfo info, int count)
+    {
+        InfoID = info.ID;
+        ItemInfo = info;
+        Count = count;
+        //Sprite = Managers.Resource.Load<Sprite>(info.SpritePath);
+    }
     
     public int AddCount(int count)
     {
         if(count < 0)
         {
-            return 0;
+            return 0 ;
         }
         int remainCount = 0;
-        if (ItemInfo.MaxCount > Count + count)
+        if (IsStackable)
         {
-            Count += count;
-            remainCount = 0;
-        }
-        else
-        {
-            remainCount = Count + count - ItemInfo.MaxCount;
-            Count = ItemInfo.MaxCount;
-        }
-        return remainCount;
-    }
-    public int RemoveCount(int count)
-    {
-        if(count < 0)
-        {
-            return 0;
-        }
-        int remainCount = 0;
-        if (Count - count > 0)
-        {
-            Count -= count;
-            remainCount = 0;
-        }
-        else
-        {
-            remainCount = count - Count;
-            Count = 0;
-        }
-        return remainCount;
-    }
-
-    public int SetCount(int count)
-    {
-        int remainCount = 0;
-        if(count < 0)
-        {
-            Count = 0;
-        }
-        else if(count > ItemInfo.MaxCount)
-        {
-            remainCount = count - ItemInfo.MaxCount;
-            Count = ItemInfo.MaxCount;
+            if (Count + count > MaxCount)
+            {
+                remainCount = Count + count - MaxCount;
+                Count = MaxCount;
+            }
+            else
+            {
+                Count += count;
+            }
         }
         else
         {
@@ -78,20 +48,81 @@ public class ItemData
         return remainCount;
     }
     
-    public override string ToString()
+    public int RemoveCount(int count)
     {
-        return $"{ItemInfo.Name} x {Count}";
+        if (count < 0)
+        {
+            return 0;
+        }
+        Count -= count;
+        if (Count <= 0)
+        {
+            Count = 0;
+        }
+        return Count;
     }
 }
 
-
+public class ItemFactory
+{
+    private ItemInfoLoader _itemLoader;
+    
+    private InfoLoader<ItemInfo> itemInfo => _itemLoader.ItemLoader;
+    private InfoLoader<EquipItemInfo> equipItemInfo => _itemLoader.EquipItemLoader;
+    private InfoLoader<ConsumeItemInfo> consumeItemInfo => _itemLoader.ConsumeItemLoader;
+    private InfoLoader<MaterialItemInfo> materialItemInfo => _itemLoader.MaterialItemLoader;
+    
+    
+    public ItemFactory()
+    {
+        _itemLoader = Managers.InfoManager.ItemInfoLoader;
+    }
+    
+    public ItemData CreateItem(int infoID, int count = 0)
+    {
+        ItemInfo info = itemInfo.GetItem(infoID);
+        switch (info.ItemType)
+        {
+            case ItemType.Equipment:
+                EquipItemInfo equipInfo = equipItemInfo.GetItem(info.EquipID);
+                return new EquipData(info,equipInfo, count);
+            case ItemType.Consume:
+                ConsumeItemInfo consumeInfo = consumeItemInfo.GetItem(info.ComsumeID);
+                return new ConsumableData(info,consumeInfo, count);
+            case ItemType.Material:
+                MaterialItemInfo materialInfo = materialItemInfo.GetItem(info.ResourceID);
+                return new MaterialData(info,materialInfo, count);
+            default:
+                return new ItemData(info, count);
+        }
+    }
+}
 
 public class EquipData : ItemData
 {
+    public EquipItemInfo EquipItemInfo { get; private set; }
     public Stat Stat { get; private set; }
-    
     public int Durability { get; private set; }
-    public EquipData(int infoID, int count = 0) : base(infoID, count)
+    
+    public EquipData(ItemInfo info, EquipItemInfo equipInfo, int count = 0) : base(info, count)
     {
+        EquipItemInfo = equipInfo;
+    }
+}
+public class ConsumableData : ItemData
+{
+    public ConsumeItemInfo ConsumeItemInfo { get; private set; }
+    
+    public ConsumableData(ItemInfo info, ConsumeItemInfo equipInfo, int count = 0) : base(info, count)
+    {
+        ConsumeItemInfo = equipInfo;
+    }
+}
+public class MaterialData : ItemData
+{
+    public MaterialItemInfo MaterialItemInfo { get; private set; }
+    public MaterialData(ItemInfo info, MaterialItemInfo equipInfo, int count = 0) : base(info, count)
+    {
+        MaterialItemInfo = equipInfo;
     }
 }
