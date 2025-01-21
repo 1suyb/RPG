@@ -66,3 +66,8 @@ public class GameObjectFactoryBase<T> where T : Component
         return InitObjOnActivate(obj);
     }
 }
+
+public class Factory<T> where T : class
+{
+    
+}

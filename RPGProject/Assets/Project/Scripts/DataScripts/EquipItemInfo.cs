@@ -16,25 +16,45 @@ public class EquipItemInfo : LoadedInfoBase
      /// </summary>
     public EquipModelingKey ModelingKey;
      /// <summary>
-     /// 스텟 옵션키
+     /// 고정상수
      /// </summary>
-    public List<StatType> StatEffectID;
+    public int MaxHp;
      /// <summary>
-     /// 효과 최소 값
+     /// 고정상수
      /// </summary>
-    public List<int> MinValue;
+    public int MaxMp;
      /// <summary>
-     /// 효과 최대값
+     /// 고정상수
      /// </summary>
-    public List<int> MaxValue;
+    public int MaxShield;
      /// <summary>
-     /// 옵션 개수
+     /// 고정상수
      /// </summary>
-    public int OptionCount;
+    public int MaxHunger;
      /// <summary>
-     /// 옵션 풀
+     /// 고정상수
      /// </summary>
-    public int OptionPoolID;
+    public int PhysicalAttack;
+     /// <summary>
+     /// 고정상수
+     /// </summary>
+    public int MagicalAttack;
+     /// <summary>
+     /// 고정상수
+     /// </summary>
+    public int PhysicalDefence;
+     /// <summary>
+     /// 고정상수
+     /// </summary>
+    public int MagicalDefence;
+     /// <summary>
+     /// 백분율
+     /// </summary>
+    public float CriticalChance;
+     /// <summary>
+     /// 백분율
+     /// </summary>
+    public float CriticalMultiplier;
      /// <summary>
      /// 착용제한 레벨
      /// </summary>

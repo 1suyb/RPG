@@ -161,6 +161,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""0c9f5ff6-ec74-4599-acb4-7051b910f23c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -449,6 +458,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""CombatToggle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f3204b98-60ef-43e1-8f99-464e651e0e08"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -505,6 +525,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_QuickSlot5 = m_Player.FindAction("QuickSlot5", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_CombatToggle = m_Player.FindAction("CombatToggle", throwIfNotFound: true);
+        m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -581,6 +602,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_QuickSlot5;
     private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_CombatToggle;
+    private readonly InputAction m_Player_Inventory;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
@@ -600,6 +622,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @QuickSlot5 => m_Wrapper.m_Player_QuickSlot5;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @CombatToggle => m_Wrapper.m_Player_CombatToggle;
+        public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -654,6 +677,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @CombatToggle.started += instance.OnCombatToggle;
             @CombatToggle.performed += instance.OnCombatToggle;
             @CombatToggle.canceled += instance.OnCombatToggle;
+            @Inventory.started += instance.OnInventory;
+            @Inventory.performed += instance.OnInventory;
+            @Inventory.canceled += instance.OnInventory;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -703,6 +729,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @CombatToggle.started -= instance.OnCombatToggle;
             @CombatToggle.performed -= instance.OnCombatToggle;
             @CombatToggle.canceled -= instance.OnCombatToggle;
+            @Inventory.started -= instance.OnInventory;
+            @Inventory.performed -= instance.OnInventory;
+            @Inventory.canceled -= instance.OnInventory;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -755,5 +784,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnQuickSlot5(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnCombatToggle(InputAction.CallbackContext context);
+        void OnInventory(InputAction.CallbackContext context);
     }
 }

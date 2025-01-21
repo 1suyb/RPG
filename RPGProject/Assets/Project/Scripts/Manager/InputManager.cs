@@ -110,4 +110,9 @@ public class InputManager : MonoBehaviour, PlayerInput.IPlayerActions
         if(context.performed)
             _inputEventListenerSo.EquipChangeInputEvent();
     }
+    public void OnInventory(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+            _inputEventListenerSo.InventoryInputEvent();
+    }
 }

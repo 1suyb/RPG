@@ -1,7 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 using UnityEngine;
 
 namespace Manager
@@ -10,7 +7,7 @@ namespace Manager
     {
         private FloatEventListenerSO _sceneLoadingEvent;
 
-        public void Init()
+        public void InitOnCreate()
         {
             _sceneLoadingEvent = ResourceManager.Load<FloatEventListenerSO>(ResourcePath.SO.LoadingEvent);
         }

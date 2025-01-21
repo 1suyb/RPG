@@ -7,7 +7,9 @@ using Manager;
 public class Managers : SingletonBase<Managers>
 {
     private SceneManager _sceneManager = new SceneManager();
+    private InfoManager _infoManager = new InfoManager();
     public static SceneManager SceneManager => Instance._sceneManager;
+    public static InfoManager InfoManager => Instance._infoManager;
     
     private void Awake()
     {
@@ -17,11 +19,11 @@ public class Managers : SingletonBase<Managers>
             return;
         }
         DontDestroyOnLoad(this.gameObject);
-        Init();
     }
 
-    private void Init()
+    protected override void InitOnCreate()
     {
-        _sceneManager.Init();
+        _sceneManager.InitOnCreate();
+        _infoManager.InitOnCreate();
     }
 }

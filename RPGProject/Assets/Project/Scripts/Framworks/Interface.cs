@@ -5,6 +5,6 @@ public interface ILoadable
 
 public interface IManager
 {
-    public void Init();
+    public void InitOnCreate();
     public void Release();
 }

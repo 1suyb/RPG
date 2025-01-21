@@ -5,17 +5,16 @@
 		"Rarity" : 0,
 		"EquipmentType" : 0,
 		"ModelingKey" : 0,
-		"StatEffectID" : [
-			2
-		],
-		"MinValue" : [
-			0
-		],
-		"MaxValue" : [
-			2
-		],
-		"OptionCount" : 0,
-		"OptionPoolID" : 0,
+		"MaxHp" : 1,
+		"MaxMp" : 1,
+		"MaxShield" : 1,
+		"MaxHunger" : 1,
+		"PhysicalAttack" : 1,
+		"MagicalAttack" : 1,
+		"PhysicalDefence" : 1,
+		"MagicalDefence" : 1,
+		"CriticalChance" : 1,
+		"CriticalMultiplier" : 1,
 		"Level" : 0
 		},
 	{
@@ -23,17 +22,16 @@
 		"Rarity" : 0,
 		"EquipmentType" : 1,
 		"ModelingKey" : 1,
-		"StatEffectID" : [
-			2
-		],
-		"MinValue" : [
-			0
-		],
-		"MaxValue" : [
-			2
-		],
-		"OptionCount" : 0,
-		"OptionPoolID" : 0,
+		"MaxHp" : 1,
+		"MaxMp" : 0,
+		"MaxShield" : 0,
+		"MaxHunger" : 0,
+		"PhysicalAttack" : 0,
+		"MagicalAttack" : 0,
+		"PhysicalDefence" : 1,
+		"MagicalDefence" : 1,
+		"CriticalChance" : 0,
+		"CriticalMultiplier" : 0,
 		"Level" : 0
 		},
 	{
@@ -41,17 +39,16 @@
 		"Rarity" : 0,
 		"EquipmentType" : 2,
 		"ModelingKey" : 2,
-		"StatEffectID" : [
-			2
-		],
-		"MinValue" : [
-			0
-		],
-		"MaxValue" : [
-			2
-		],
-		"OptionCount" : 0,
-		"OptionPoolID" : 0,
+		"MaxHp" : 1,
+		"MaxMp" : 0,
+		"MaxShield" : 0,
+		"MaxHunger" : 0,
+		"PhysicalAttack" : 0,
+		"MagicalAttack" : 0,
+		"PhysicalDefence" : 1,
+		"MagicalDefence" : 1,
+		"CriticalChance" : 0,
+		"CriticalMultiplier" : 0,
 		"Level" : 0
 		},
 	{
@@ -59,17 +56,16 @@
 		"Rarity" : 0,
 		"EquipmentType" : 3,
 		"ModelingKey" : 3,
-		"StatEffectID" : [
-			2
-		],
-		"MinValue" : [
-			0
-		],
-		"MaxValue" : [
-			2
-		],
-		"OptionCount" : 0,
-		"OptionPoolID" : 0,
+		"MaxHp" : 1,
+		"MaxMp" : 0,
+		"MaxShield" : 0,
+		"MaxHunger" : 0,
+		"PhysicalAttack" : 0,
+		"MagicalAttack" : 0,
+		"PhysicalDefence" : 1,
+		"MagicalDefence" : 1,
+		"CriticalChance" : 0,
+		"CriticalMultiplier" : 0,
 		"Level" : 0
 		},
 	{
@@ -77,17 +73,16 @@
 		"Rarity" : 0,
 		"EquipmentType" : 4,
 		"ModelingKey" : 4,
-		"StatEffectID" : [
-			2
-		],
-		"MinValue" : [
-			0
-		],
-		"MaxValue" : [
-			2
-		],
-		"OptionCount" : 0,
-		"OptionPoolID" : 0,
+		"MaxHp" : 1,
+		"MaxMp" : 0,
+		"MaxShield" : 0,
+		"MaxHunger" : 0,
+		"PhysicalAttack" : 0,
+		"MagicalAttack" : 0,
+		"PhysicalDefence" : 1,
+		"MagicalDefence" : 1,
+		"CriticalChance" : 0,
+		"CriticalMultiplier" : 0,
 		"Level" : 0
 		},
 	{
@@ -95,17 +90,16 @@
 		"Rarity" : 0,
 		"EquipmentType" : 5,
 		"ModelingKey" : 5,
-		"StatEffectID" : [
-			2
-		],
-		"MinValue" : [
-			0
-		],
-		"MaxValue" : [
-			2
-		],
-		"OptionCount" : 0,
-		"OptionPoolID" : 0,
+		"MaxHp" : 1,
+		"MaxMp" : 0,
+		"MaxShield" : 0,
+		"MaxHunger" : 0,
+		"PhysicalAttack" : 0,
+		"MagicalAttack" : 0,
+		"PhysicalDefence" : 1,
+		"MagicalDefence" : 1,
+		"CriticalChance" : 0,
+		"CriticalMultiplier" : 0,
 		"Level" : 0
 		},
 	{
@@ -113,17 +107,16 @@
 		"Rarity" : 0,
 		"EquipmentType" : 6,
 		"ModelingKey" : 6,
-		"StatEffectID" : [
-			0
-		],
-		"MinValue" : [
-			0
-		],
-		"MaxValue" : [
-			2
-		],
-		"OptionCount" : 0,
-		"OptionPoolID" : 0,
+		"MaxHp" : 0,
+		"MaxMp" : 0,
+		"MaxShield" : 0,
+		"MaxHunger" : 0,
+		"PhysicalAttack" : 0,
+		"MagicalAttack" : 0,
+		"PhysicalDefence" : 0,
+		"MagicalDefence" : 0,
+		"CriticalChance" : 1,
+		"CriticalMultiplier" : 1,
 		"Level" : 0
 		},
 	{
@@ -131,17 +124,16 @@
 		"Rarity" : 0,
 		"EquipmentType" : 7,
 		"ModelingKey" : 7,
-		"StatEffectID" : [
-			0
-		],
-		"MinValue" : [
-			0
-		],
-		"MaxValue" : [
-			2
-		],
-		"OptionCount" : 0,
-		"OptionPoolID" : 0,
+		"MaxHp" : 0,
+		"MaxMp" : 0,
+		"MaxShield" : 0,
+		"MaxHunger" : 0,
+		"PhysicalAttack" : 1,
+		"MagicalAttack" : 1,
+		"PhysicalDefence" : 0,
+		"MagicalDefence" : 0,
+		"CriticalChance" : 1,
+		"CriticalMultiplier" : 1,
 		"Level" : 0
 		},
 	{
@@ -149,17 +141,16 @@
 		"Rarity" : 0,
 		"EquipmentType" : 8,
 		"ModelingKey" : 8,
-		"StatEffectID" : [
-			0
-		],
-		"MinValue" : [
-			0
-		],
-		"MaxValue" : [
-			2
-		],
-		"OptionCount" : 0,
-		"OptionPoolID" : 0,
+		"MaxHp" : 0,
+		"MaxMp" : 0,
+		"MaxShield" : 0,
+		"MaxHunger" : 0,
+		"PhysicalAttack" : 1,
+		"MagicalAttack" : 0,
+		"PhysicalDefence" : 0,
+		"MagicalDefence" : 0,
+		"CriticalChance" : 1,
+		"CriticalMultiplier" : 1,
 		"Level" : 0
 		},
 	{
@@ -167,17 +158,16 @@
 		"Rarity" : 0,
 		"EquipmentType" : 9,
 		"ModelingKey" : 9,
-		"StatEffectID" : [
-			0
-		],
-		"MinValue" : [
-			0
-		],
-		"MaxValue" : [
-			2
-		],
-		"OptionCount" : 0,
-		"OptionPoolID" : 0,
+		"MaxHp" : 0,
+		"MaxMp" : 0,
+		"MaxShield" : 0,
+		"MaxHunger" : 0,
+		"PhysicalAttack" : 1,
+		"MagicalAttack" : 1,
+		"PhysicalDefence" : 0,
+		"MagicalDefence" : 0,
+		"CriticalChance" : 1,
+		"CriticalMultiplier" : 1,
 		"Level" : 0
 		},
 	{
@@ -185,17 +175,16 @@
 		"Rarity" : 0,
 		"EquipmentType" : 10,
 		"ModelingKey" : 10,
-		"StatEffectID" : [
-			0
-		],
-		"MinValue" : [
-			0
-		],
-		"MaxValue" : [
-			2
-		],
-		"OptionCount" : 0,
-		"OptionPoolID" : 0,
+		"MaxHp" : 0,
+		"MaxMp" : 0,
+		"MaxShield" : 0,
+		"MaxHunger" : 0,
+		"PhysicalAttack" : 1,
+		"MagicalAttack" : 1,
+		"PhysicalDefence" : 0,
+		"MagicalDefence" : 0,
+		"CriticalChance" : 1,
+		"CriticalMultiplier" : 1,
 		"Level" : 0
 		}
 	]

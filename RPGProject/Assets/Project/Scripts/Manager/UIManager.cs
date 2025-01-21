@@ -3,14 +3,12 @@ using UnityEngine;
 
 namespace Manager
 {
-    public class UIManager
+    public class UIManager : SingletonBase<UIManager>
     {
         private Dictionary<UIType, UIBase> _uiCache = new Dictionary<UIType, UIBase>();
-        private readonly Transform _canvas;
 
         public UIManager()
         {
-            _canvas = ResourceManager.Instantiate(UIPath.RootCanvas).transform;
         }
 
         public T Get<T>(UIType type) where T : UIBase
@@ -21,8 +19,9 @@ namespace Manager
             }
             else
             {
-                T ui = ResourceManager.Instantiate(UIPath.Path[type],  parent:_canvas).GetComponent<T>();
+                T ui = ResourceManager.Instantiate(UIPath.Path[type]).GetComponent<T>();
                 _uiCache.Add(type, ui);
+                ui.gameObject.SetActive(false);
                 return ui;
             }
         }

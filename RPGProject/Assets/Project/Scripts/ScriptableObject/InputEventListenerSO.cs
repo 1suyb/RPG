@@ -43,6 +43,7 @@ public class InputEventListenerSO : ScriptableObject
     public event Action OnAttackInputDownEvent;
     public event Action OnAttackInputUpEvent;
     public event Action OnEquipChangeInputEvent;
+    public event Action OnInventoryInputEvent;
 
     public void JumpInputDownEvent()
     {
@@ -100,5 +101,8 @@ public class InputEventListenerSO : ScriptableObject
     {
         OnEquipChangeInputEvent?.Invoke();
     }
-    
+    public void InventoryInputEvent()
+    {
+        OnInventoryInputEvent?.Invoke();
+    }
 }
