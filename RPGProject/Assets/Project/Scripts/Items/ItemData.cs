@@ -7,9 +7,14 @@ public class ItemData
     public int ID { get; private set; }
     public int InfoID { get; private set; }
     [JsonIgnore] public ItemInfo ItemInfo { get; private set; }
+    [JsonIgnore] public string Name => ItemInfo.Name;
+    [JsonIgnore] public string Description => ItemInfo.Description;
+    [JsonIgnore] public ItemType ItemType  => ItemInfo.ItemType;
+    [JsonIgnore] public int Price => ItemInfo.Price;
+    [JsonIgnore] public bool Sell => ItemInfo.Sell; 
+    [JsonIgnore] public bool Destory => ItemInfo.Destory;
     [JsonIgnore] public bool IsStackable => ItemInfo.Stackable;
     [JsonIgnore] public int MaxCount => ItemInfo.MaxCount;
-    [JsonIgnore] public ItemType ItemType  => ItemInfo.ItemType;
     
     private int _count;
     [JsonIgnore] public int Count
@@ -95,6 +100,7 @@ public class ItemFactory
 public class EquipData : ItemData
 {
     public EquipItemInfo EquipItemInfo { get; private set; }
+    public EquipType EquipType => EquipItemInfo.EquipmentType;
     public Stat Stat { get; private set; }
     public int Durability { get; private set; }
     

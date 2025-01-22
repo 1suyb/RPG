@@ -18,7 +18,20 @@ public class InventoryController : MonoBehaviour
         _uiInventory.InitOnCreate(this);
         _openInventoryEvent.OnInventoryInputEvent += OpenInventory;
     }
-    
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            AddItem(Managers.InfoManager.ItemInfoLoader.ItemLoader.GetItem(7),1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            AddItem(Managers.InfoManager.ItemInfoLoader.ItemLoader.GetItem(12),10);
+        }
+        
+    }
 
     public void OpenInventory()
     {
@@ -70,8 +83,19 @@ public class InventoryController : MonoBehaviour
         UpdateUI();
     }
 
-    private void UpdateUI(List<ItemData> datas = null)
+    public void Swap(int i, int j)
     {
-        _uiInventory.UpdateUI(datas==null?_inventory.ItemList:datas);
+        _inventory.Swap(i, j);
+        UpdateUI();
+    }
+
+    public ItemData GetItemData(int index)
+    {
+        return _inventory[index];
+    }
+    
+    private void UpdateUI(ItemData[] datas = null)
+    {
+        _uiInventory.UpdateUI(datas ?? _inventory.ItemList);
     }
 }

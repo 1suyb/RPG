@@ -4,15 +4,31 @@ using System.Collections.Generic;
 public class Inventory
 {
     private ItemFactory _itemFactory;
-    private List<ItemData> _itemList = new List<ItemData>();
-    public List<ItemData> ItemList => _itemList;
-    private int _maxCount = 20;
+    private ItemData[] _itemList;
+    public ItemData[] ItemList => _itemList;
+    private int _maxCount = 80;
 
-    private bool _isFull => _itemList.Count >= _maxCount;
-    
+    private bool _isFull {
+        get
+        {
+            return FindEmptyIndex() == -1;
+        } 
+    }
+    public ItemData this[int index]
+    {
+        get
+        {
+            if (index < 0 || index >= _itemList.Length)
+            {
+                return null;
+            }
+            return _itemList[index];
+        }
+    }
+
     public Inventory()
     {
-        _itemList = new List<ItemData>();
+        _itemList = new ItemData[_maxCount];
         _itemFactory = Managers.FactoryManager.ItemFactory;
     }
     
@@ -53,7 +69,8 @@ public class Inventory
             return 0;
         }
         ItemData newItem = _itemFactory.CreateItem(info.ID, remainCount);
-        _itemList.Add(newItem);
+        int index = FindEmptyIndex();
+        _itemList[index] = newItem;
         remainCount -= info.MaxCount;
         
         if(remainCount > 0 )
@@ -69,14 +86,14 @@ public class Inventory
         else
         {
             ItemData newItem = _itemFactory.CreateItem(info.ID, count);
-            newItem.AddCount(count);
-            _itemList.Add(newItem);
+            int index = FindEmptyIndex();
+            _itemList[index] = newItem;
             return 0;
         }
     }
     private int FindItemIndex(int infoID, int startIndex = 0)
     {
-        for (int i = startIndex; i < _itemList.Count; i++)
+        for (int i = startIndex; i < _itemList.Length; i++)
         {
             if (_itemList[i].InfoID == infoID)
             {
@@ -88,8 +105,12 @@ public class Inventory
     private List<int> FindItemIndices(int infoID)
     {
         List<int> indices = new List<int>();
-        for (int i = 0; i < _itemList.Count; i++)
+        for (int i = 0; i < _itemList.Length; i++)
         {
+            if(_itemList[i] == null)
+            {
+                continue;
+            }
             if (_itemList[i].InfoID == infoID)
             {
                 indices.Add(i);
@@ -106,7 +127,26 @@ public class Inventory
         int remainCount = _itemList[index].RemoveCount(count);
         if (remainCount == 0)
         {
-            _itemList.RemoveAt(index);
+            _itemList[index] = null;
         }
+    }
+
+    public int FindEmptyIndex()
+    {
+        for (int i = 0; i < _itemList.Length; i++)
+        {
+            if (_itemList[i] == null)
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+    
+
+    public void Swap(int i, int j)
+    {
+        (_itemList[i], _itemList[j]) = (_itemList[j], _itemList[i]);
     }
 }

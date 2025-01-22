@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UISlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class UISlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [Header("Dotween")]
     [SerializeField] private float _scaleDuration = 0.1f;
@@ -13,8 +13,9 @@ public class UISlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     
     [Header("UI")]
     [Tooltip("인터렉션 가능한 슬롯인지")][SerializeField] private bool _isInteractive;
-    [SerializeField] private Image _icon;
+    [SerializeField] protected Image _icon;
     
+    public float ScaleValue => _scaleValue;
     
     private Action _enterAction;
     private Action _exitAction;
@@ -40,7 +41,7 @@ public class UISlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         InitTween();
     }
     
-    public void InitActions(Action click, Action enter, Action exit)
+    public void AddEvents(Action click, Action enter, Action exit)
     {
         _clickAction = click;
         _enterAction = enter;
