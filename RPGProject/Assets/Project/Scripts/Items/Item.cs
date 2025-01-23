@@ -52,16 +52,16 @@ public class Item
         return _count;
     }
     
-    public void UseItem()
+    public void UseItem(Character character)
     {
         switch(_itemData.ItemType)
         {
             case ItemType.Equipment:
-                ICommand equipCommand = new EquipItemCommand(this);
+                ICommand equipCommand = new EquipItemCommand(this, character);
                 equipCommand.Execute();
                 break;
             case ItemType.Consume:
-                ICommand consumableCommand = new ConsumableItemCommand(this);
+                ICommand consumableCommand = new ConsumableItemCommand(this, character);
                 consumableCommand.Execute();
                 break;
         }
@@ -78,6 +78,7 @@ public class EquipItem : Item
         _equipData = itemData as EquipData;
     }
 }
+
 
 
 public class ItemFactory

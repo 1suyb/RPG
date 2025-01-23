@@ -3,12 +3,16 @@ using UnityEngine;
 
 public class Character : MonoBehaviour, IDamageable , IHealable
 {
+    [field:SerializeField] public string Name { get; private set; }
     [field:SerializeField] public CharacterStateMachine StateMachine { get; private set; }
     [field:SerializeField] public StatHandler StatHandler { get; private set; }
     [field:SerializeField] public CharacterConditionHandler ConditionHandler { get; private set; }
+    [field:SerializeField] public CharacterBuffReceiver BuffReceiver { get; private set; }
     [field:SerializeField] public AttackData CurrentAttackData { get; private set; }
     [field:SerializeField] public LayerMask TargetLayer { get; private set; }
     [field:SerializeField] public Transform Target { get; private set; }
+    
+    
     public void Start()
     {
         StateMachine.Init(this);
@@ -22,6 +26,11 @@ public class Character : MonoBehaviour, IDamageable , IHealable
 
     public void ReceiveHealing()
     {
-        throw new NotImplementedException();
+        Debug.Log("회복!");
+    }
+
+    public void ReceiveBuff(BuffInfo info)
+    {
+        BuffReceiver.AddBuff(info);
     }
 }

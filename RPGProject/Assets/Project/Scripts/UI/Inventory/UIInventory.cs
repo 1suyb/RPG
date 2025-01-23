@@ -60,18 +60,6 @@ public class UIInventory : UIBase
         }
     }
     #endregion
-
-    private void OpenActionPopup()
-    {
-        _itemActionPopup.OpenActionPopup(_slotList[_heldSlotIndex].GetComponent<RectTransform>(),
-            _inventoryController.GetItemData(_heldSlotIndex));
-        _itemActionPopup.AddEvent(new Action[]{()=>_inventoryController.UseItem(_heldSlotIndex)});
-    }
-
-    private void CloseActionPopup()
-    {
-        _itemActionPopup.CloseActionPopup();
-    }
     
     public void UpdateUI(Item[] datas)
     {
@@ -116,6 +104,20 @@ public class UIInventory : UIBase
         _itemTooltip.CloseUI();
     }
     
+    #endregion
+
+    #region ActionPopup
+    private void OpenActionPopup()
+    {
+        _itemActionPopup.OpenActionPopup(_slotList[_heldSlotIndex].GetComponent<RectTransform>(),
+            _inventoryController.GetItemData(_heldSlotIndex));
+        _itemActionPopup.AddEvent(new Action[]{()=>_inventoryController.UseItem(_heldSlotIndex)});
+    }
+
+    private void CloseActionPopup()
+    {
+        _itemActionPopup.CloseActionPopup();
+    }
     #endregion
 
 }

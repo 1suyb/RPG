@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class InventoryController : MonoBehaviour
 {
+    private Character _character;
     private Inventory _inventory;
     private UIInventory _uiInventory;
     [SerializeField] private InputEventListenerSO _openInventoryEvent;
@@ -11,6 +12,7 @@ public class InventoryController : MonoBehaviour
 
     private void Awake()
     {
+        _character = GetComponent<Character>();
         _inventory = new Inventory();
         _uiInventory = UIManager.Instance.Get<UIInventory>(UIType.Inventory);
         _uiInventory.InitOnCreate(this);
@@ -104,6 +106,6 @@ public class InventoryController : MonoBehaviour
         {
             return;
         }
-        item.UseItem();
+        item.UseItem(_character);
     }
 }

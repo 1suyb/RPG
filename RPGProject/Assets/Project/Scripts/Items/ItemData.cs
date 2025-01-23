@@ -75,6 +75,8 @@ public class EquipData : ItemData
 public class ConsumableData : ItemData
 {
     public ConsumeItemInfo ConsumeItemInfo { get; private set; }
+    // 쿨타임
+    public int BuffID => ConsumeItemInfo.BuffID;
     
     public ConsumableData(ItemInfo info, ConsumeItemInfo equipInfo, int count = 0) : base(info, count)
     {
