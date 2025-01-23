@@ -144,7 +144,6 @@ public class Inventory
         return -1;
     }
     
-
     public void Swap(int i, int j)
     {
         (_itemList[i], _itemList[j]) = (_itemList[j], _itemList[i]);

@@ -52,21 +52,33 @@ public class Item
         return _count;
     }
     
-    public void UseItem(Character character)
+    public void UseItem()
     {
         switch(_itemData.ItemType)
         {
             case ItemType.Equipment:
-                ICommand equipCommand = new EquipItemCommand(_itemData, character);
+                ICommand equipCommand = new EquipItemCommand(this);
                 equipCommand.Execute();
                 break;
             case ItemType.Consume:
-                ICommand consumableCommand = new ConsumableItemCommand(_itemData, character);
+                ICommand consumableCommand = new ConsumableItemCommand(this);
                 consumableCommand.Execute();
                 break;
         }
     }
 }
+
+public class EquipItem : Item
+{
+    private EquipData _equipData;
+    public bool IsEquipped;
+    public EquipItem(ItemData itemData, int count) : base(itemData, count)
+    {
+        IsEquipped = false;
+        _equipData = itemData as EquipData;
+    }
+}
+
 
 public class ItemFactory
 {

@@ -2,13 +2,13 @@ using UnityEngine;
 
 public abstract class ItemUseCommand : ICommand
 {
-    protected ItemData _item;
+    protected Item _item;
     protected Character _character;
     
-    public ItemUseCommand(ItemData item, Character character)
+    public ItemUseCommand(Item item)
     {
         _item = item;
-        _character = character;
+        //_character = character;
     }
 
     public abstract void Execute();
@@ -16,24 +16,28 @@ public abstract class ItemUseCommand : ICommand
 
 public class EquipItemCommand : ItemUseCommand
 {
-    public EquipItemCommand(ItemData item, Character character) : base(item, character)
+    public EquipItemCommand(Item item) : base(item)
     {
     }
 
     public override void Execute()
     {
-        Debug.Log($"{_item.Name}");
+        Debug.Log($"{_item.ItemData.Name}");
+        EquipItem equipItem = _item as EquipItem;
+        if (equipItem == null) return;
+        equipItem.IsEquipped = !equipItem.IsEquipped;
+        
     }
 }
 public class ConsumableItemCommand : ItemUseCommand
 {
-    public ConsumableItemCommand(ItemData item, Character character) : base(item, character)
+    public ConsumableItemCommand(Item item) : base(item)
     {
     }
 
     public override void Execute()
     {
-        Debug.Log($"{_item.Name}");
+        Debug.Log($"{_item.ItemData.Name}");
     }
 }
 

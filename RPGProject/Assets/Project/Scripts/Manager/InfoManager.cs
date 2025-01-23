@@ -7,9 +7,13 @@ namespace Manager
     public class InfoManager : IManager
     {
         public ItemInfoLoader ItemInfoLoader { get; private set; }
+        public InfoLoader<BuffInfo> BuffLoader { get; private set; }
+        public InfoLoader<EffectInfo> EffectLoader { get; private set; }
         public void InitOnCreate()
         {
             ItemInfoLoader = new ItemInfoLoader();
+            BuffLoader = new InfoLoader<BuffInfo>();
+            EffectLoader = new InfoLoader<EffectInfo>();
         }
 
         public void Release()
@@ -24,8 +28,7 @@ namespace Manager
         public InfoLoader<EquipItemInfo> EquipItemLoader { get; private set; }
         public InfoLoader<ConsumeItemInfo> ConsumeItemLoader { get; private set; }
         public InfoLoader<MaterialItemInfo> MaterialItemLoader { get; private set; }
-        public InfoLoader<BuffInfo> BuffLoader { get; private set; }
-        public InfoLoader<EffectInfo> EffectLoader { get; private set; }
+
         
         public ItemInfoLoader()
         {
@@ -33,8 +36,7 @@ namespace Manager
             EquipItemLoader = new InfoLoader<EquipItemInfo>();
             ConsumeItemLoader = new InfoLoader<ConsumeItemInfo>();
             MaterialItemLoader = new InfoLoader<MaterialItemInfo>();
-            BuffLoader = new InfoLoader<BuffInfo>();
-            EffectLoader = new InfoLoader<EffectInfo>();
+
         }
     }
 

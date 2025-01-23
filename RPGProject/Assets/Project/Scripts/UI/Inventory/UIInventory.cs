@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,11 +16,10 @@ public class UIInventory : UIBase
     
     [Header("Prefabs")]
     [SerializeField] private GameObject _slotPrefab;
-    [SerializeField] private GameObject _itemMenuButtonPrefab;
-    
     [Header("Tooltip")]
     [SerializeField] private UIItemTooltip _itemTooltip;
-
+    [Header("ItemActionPopup")]
+    [SerializeField] private UIItemActionPopup _itemActionPopup;
 
     private InventoryController _inventoryController;
     
@@ -33,13 +33,6 @@ public class UIInventory : UIBase
     public void InitOnCreate(InventoryController inventoryController)
     {
         _inventoryController = inventoryController;
-        for(int i = 0 ; i<3;i++)
-        {
-            GameObject buttonObject = Instantiate(_itemMenuButtonPrefab, _slotParent.parent);
-            Button button = buttonObject.GetComponent<Button>();
-            _actionPopupButtons.Add(button);
-            button.gameObject.SetActive(false);
-        }
         InitSlot();
         _arrayAll.onClick.AddListener(() => _inventoryController.ArrayAll());
         _arrayEquips.onClick.AddListener(() => _inventoryController.ArrayEquips());
@@ -70,21 +63,14 @@ public class UIInventory : UIBase
 
     private void OpenActionPopup()
     {
-        Vector3 pivotPoint = _slotList[_heldSlotIndex].transform.position - Vector3.up*_slotList[_heldSlotIndex].GetComponent<RectTransform>().rect.height/2;
-        for(int i = 0; i< _actionPopupButtons.Count; i++)
-        {
-            _actionPopupButtons[i].gameObject.SetActive(true);
-            _actionPopupButtons[i].transform.position = pivotPoint;
-            pivotPoint += new Vector3(0, -_actionPopupButtons[i].GetComponent<RectTransform>().rect.height, 0);
-        }
+        _itemActionPopup.OpenActionPopup(_slotList[_heldSlotIndex].GetComponent<RectTransform>(),
+            _inventoryController.GetItemData(_heldSlotIndex));
+        _itemActionPopup.AddEvent(new Action[]{()=>_inventoryController.UseItem(_heldSlotIndex)});
     }
 
     private void CloseActionPopup()
     {
-        for(int i = 0 ; i < _actionPopupButtons.Count; i++)
-        {
-            _actionPopupButtons[i].gameObject.SetActive(false);
-        }
+        _itemActionPopup.CloseActionPopup();
     }
     
     public void UpdateUI(Item[] datas)

@@ -799,6 +799,65 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
+--- !u!1 &3541715041733532705
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1153384432244325109}
+  - component: {fileID: 4168609744927550772}
+  - component: {fileID: 228564546093437984}
+  m_Layer: 5
+  m_Name: ItemActionPopUp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1153384432244325109
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3541715041733532705}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5641242389818699628}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 65, y: 7.5}
+  m_SizeDelta: {x: -130, y: -15}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &4168609744927550772
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3541715041733532705}
+  m_CullTransparentMesh: 1
+--- !u!114 &228564546093437984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3541715041733532705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ffae835bf1fa24e88696b96b72a268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _itemMenuButtonPrefab: {fileID: 3194314230549430130, guid: c7134536d8ca8c942b7d859aef495612,
+    type: 3}
 --- !u!1 &3973841089789332860
 GameObject:
   m_ObjectHideFlags: 0
@@ -2088,6 +2147,7 @@ MonoBehaviour:
   _itemMenuButtonPrefab: {fileID: 3194314230549430130, guid: c7134536d8ca8c942b7d859aef495612,
     type: 3}
   _itemTooltip: {fileID: 327919865774897251}
+  _itemActionPopup: {fileID: 228564546093437984}
 --- !u!1 &8093275080649833603
 GameObject:
   m_ObjectHideFlags: 0
@@ -2121,6 +2181,7 @@ RectTransform:
   - {fileID: 8676729561217126464}
   - {fileID: 5271669852710216458}
   - {fileID: 4589616338749245096}
+  - {fileID: 1153384432244325109}
   m_Father: {fileID: 3844548044993012743}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}

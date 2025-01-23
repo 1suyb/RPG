@@ -64,6 +64,8 @@ public class EquipData : ItemData
     public EquipType EquipType => EquipItemInfo.EquipmentType;
     public Stat Stat { get; private set; }
     public int Durability { get; private set; }
+    // public int MaxDurability => EquipItemInfo.MaxDurability;
+    public bool IsBroken => Durability <= 0;
     
     public EquipData(ItemInfo info, EquipItemInfo equipInfo, int count = 0) : base(info, count)
     {

@@ -96,4 +96,14 @@ public class InventoryController : MonoBehaviour
     {
         _uiInventory.UpdateUI(datas ?? _inventory.ItemList);
     }
+
+    public void UseItem(int index)
+    {
+        Item item = _inventory[index];
+        if (item == null)
+        {
+            return;
+        }
+        item.UseItem();
+    }
 }
