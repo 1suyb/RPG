@@ -4,9 +4,10 @@ using UnityEngine;
 public class StatHandler : MonoBehaviour
 {
     [SerializeField]private Stat _baseStat;
+    private Stat _adjustedStat;
+    public Stat AdjustedStat => _adjustedStat;
     public Stat CurrentStat { get; private set; }
     
-
     public event Action<Stat> ChangedStat;
 
     private void Awake()
@@ -17,8 +18,14 @@ public class StatHandler : MonoBehaviour
     public void InitOnCreate(Stat stat)
     {
         _baseStat = stat;
-        CurrentStat = _baseStat;
+        _adjustedStat = _baseStat;
+        CurrentStat = new Stat(_adjustedStat);
         ChangedStat?.Invoke(CurrentStat);
+    }
+
+    public void SetAdjustStat(Stat stat)
+    {
+        _adjustedStat = stat;
     }
     
     public void MultiplyStat(Stat stat, StatHandleType type = StatHandleType.BaseMultiply)

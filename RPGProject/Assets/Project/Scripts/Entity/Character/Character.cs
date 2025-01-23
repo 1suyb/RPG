@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character : MonoBehaviour, IDamageable , IHealable
 {
     [field:SerializeField] public CharacterStateMachine StateMachine { get; private set; }
     [field:SerializeField] public StatHandler StatHandler { get; private set; }
@@ -13,7 +13,15 @@ public class Character : MonoBehaviour
     {
         StateMachine.Init(this);
     }
-    
-    
-    
+
+
+    public void TakeDamage(AttackHandler attackHandler)
+    {
+        Debug.Log("맞았따");
+    }
+
+    public void ReceiveHealing()
+    {
+        throw new NotImplementedException();
+    }
 }
