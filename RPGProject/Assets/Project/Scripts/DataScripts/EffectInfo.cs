@@ -10,7 +10,7 @@ public class EffectInfo : LoadedInfoBase
      /// <summary>
      /// 회복하는 요소
      /// </summary>
-    public List<EffectType> Recovery;
+    public EffectType Effect;
      /// <summary>
      /// true-> 백분율 / false -> 절대값
      /// </summary>
