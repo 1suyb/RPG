@@ -279,6 +279,10 @@ namespace ExceltoJson
                 sb.AppendLine("{");
                 for(int j = 1; j<data.ItemArray.Length;j++)
                 {
+                    if(data.ItemArray[j].ToString() == "")
+                    {
+                        continue;
+                    }
                     if(!_enumData[data.ItemArray[0].ToString()].ContainsKey(data.ItemArray[j].ToString()))
                     {
                         _enumData[data.ItemArray[0].ToString()].Add(data.ItemArray[j].ToString(),j-1);
