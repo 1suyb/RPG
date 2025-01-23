@@ -70,6 +70,18 @@ public class EquipData : ItemData
     public EquipData(ItemInfo info, EquipItemInfo equipInfo, int count = 0) : base(info, count)
     {
         EquipItemInfo = equipInfo;
+        StatBuilder statBuilder = new StatBuilder();
+        Stat = statBuilder.SetHP(equipInfo.MaxHp)
+            .SetMP(equipInfo.MaxMp)
+            .SetShield(equipInfo.MaxShield)
+            .SetHunger(equipInfo.MaxHunger)
+            .SetPhysicalAttack(equipInfo.PhysicalAttack)
+            .SetMagicalAttack(equipInfo.MagicalAttack)
+            .SetPhysicalDefence(equipInfo.PhysicalDefence)
+            .SetMagicalDefence(equipInfo.MagicalDefence)
+            .SetCriticalChance(equipInfo.CriticalChance)
+            .SetCriticalMultiplier(equipInfo.CriticalMultiplier)
+            .Build();
     }
 }
 public class ConsumableData : ItemData

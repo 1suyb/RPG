@@ -62,6 +62,7 @@ public class Item
                 break;
             case ItemType.Consume:
                 ICommand consumableCommand = new ConsumableItemCommand(this, character);
+                Count -= 1;
                 consumableCommand.Execute();
                 break;
         }
@@ -71,6 +72,7 @@ public class Item
 public class EquipItem : Item
 {
     private EquipData _equipData;
+    public Stat Stat => _equipData.Stat;
     public bool IsEquipped;
     public EquipItem(ItemData itemData, int count) : base(itemData, count)
     {
@@ -86,6 +88,10 @@ public class ItemFactory
     public Item CreateItem(int infoID, int count = 0)
     {
         ItemData itemData = Managers.FactoryManager.ItemDataFactory.CreateItem(infoID, count);
+        if (itemData.ItemType == ItemType.Equipment)
+        {
+            return new EquipItem(itemData, count);
+        }
         return new Item(itemData, count);
     }
     

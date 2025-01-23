@@ -25,8 +25,10 @@ public class EquipItemCommand : ItemUseCommand
         Debug.Log($"{_item.ItemData.Name} by {_character.Name}");;
         EquipItem equipItem = _item as EquipItem;
         if (equipItem == null) return;
-        equipItem.IsEquipped = !equipItem.IsEquipped;
-        
+        if (!equipItem.IsEquipped)
+            _character.EquipItem(equipItem);
+        else
+            _character.UnequipItem(equipItem);
     }
 }
 

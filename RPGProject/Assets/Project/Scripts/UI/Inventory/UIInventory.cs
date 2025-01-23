@@ -80,6 +80,7 @@ public class UIInventory : UIBase
     {
         if(_heldSlotIndex!=index) CloseActionPopup();
         _heldSlotIndex = index;
+        Debug.Log("HoldSlot : " + _heldSlotIndex);
         
     }
     public void Swap(int to)
@@ -109,7 +110,9 @@ public class UIInventory : UIBase
     #region ActionPopup
     private void OpenActionPopup()
     {
-        _itemActionPopup.OpenActionPopup(_slotList[_heldSlotIndex].GetComponent<RectTransform>(),
+        UIInventorySlot slot = _slotList[_heldSlotIndex];
+        if(slot.IsNull) return;
+        _itemActionPopup.OpenActionPopup(slot.GetComponent<RectTransform>(),
             _inventoryController.GetItemData(_heldSlotIndex));
         _itemActionPopup.AddEvent(new Action[]{()=>_inventoryController.UseItem(_heldSlotIndex)});
     }

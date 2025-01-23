@@ -148,4 +148,16 @@ public class Inventory
     {
         (_itemList[i], _itemList[j]) = (_itemList[j], _itemList[i]);
     }
+    public void UseAtItem(int index, Character character)
+    {
+        if (index < 0)
+        {
+            return;
+        }
+        _itemList[index].UseItem(character);
+        if (_itemList[index].Count == 0)
+        {
+            _itemList[index] = null;
+        }
+    }
 }

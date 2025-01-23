@@ -24,6 +24,10 @@ public class UIItemActionPopup : MonoBehaviour
     
     public void OpenActionPopup(RectTransform slotTransform, Item item)
     {
+        if(item == null)
+        {
+            return;
+        }
         Vector3 pivotPoint = slotTransform.position - Vector3.up * slotTransform.rect.height / 2;
         for(int i = 0; i< _actionPopupButtons.Count; i++)
         {

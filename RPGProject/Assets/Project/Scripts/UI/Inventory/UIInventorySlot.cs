@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 public class UIInventorySlot : UISlot, IPointerDownHandler, IPointerUpHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
 {
@@ -28,7 +29,7 @@ public class UIInventorySlot : UISlot, IPointerDownHandler, IPointerUpHandler, I
     private Action _onDrag;
     private Action _onDrop;
     
-    private bool _isNull = true;
+    public bool IsNull = true;
     private bool _isDragging = false;
     public void InitOnCreate(int index, UIInventory inventoryUI)
     {
@@ -38,7 +39,7 @@ public class UIInventorySlot : UISlot, IPointerDownHandler, IPointerUpHandler, I
     
     public void UpdateSlot(Sprite sprite, int count)
     {
-        _isNull = sprite == null;
+        IsNull = sprite == null;
         Sprite = sprite;
         Count = count;
     }
@@ -69,7 +70,7 @@ public class UIInventorySlot : UISlot, IPointerDownHandler, IPointerUpHandler, I
     public void OnBeginDrag(PointerEventData eventData)
     {
         _onBeginDrag?.Invoke();
-        if (!_isNull)
+        if (!IsNull)
         {
             _isDragging = true;
             _icon.rectTransform.SetParent(_inventoryUI.transform, false);

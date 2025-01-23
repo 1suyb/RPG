@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class StatHandler : MonoBehaviour
 {
-    [SerializeField]private Stat _baseStat;
-    private Stat _adjustedStat;
+    [SerializeField] private Stat _baseStat;
+    [SerializeField] private Stat _adjustedStat;
     public Stat AdjustedStat => _adjustedStat;
     public Stat CurrentStat { get; private set; }
     
@@ -12,6 +12,7 @@ public class StatHandler : MonoBehaviour
 
     private void Awake()
     {
+        _baseStat = new Stat();
         CurrentStat = _baseStat;
     }
 
@@ -23,9 +24,15 @@ public class StatHandler : MonoBehaviour
         ChangedStat?.Invoke(CurrentStat);
     }
 
-    public void SetAdjustStat(Stat stat)
+    public void AddAdjustStat(Stat stat)
     {
-        _adjustedStat = stat;
+        _adjustedStat += stat;
+        CurrentStat = _baseStat + _adjustedStat;
+    }
+    public void SubtractAdjustStat(Stat stat)
+    {
+        _adjustedStat -= stat;
+        CurrentStat = _baseStat + _adjustedStat;
     }
     
     public void MultiplyStat(Stat stat, StatHandleType type = StatHandleType.BaseMultiply)

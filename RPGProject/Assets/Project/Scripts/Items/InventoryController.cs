@@ -101,11 +101,7 @@ public class InventoryController : MonoBehaviour
 
     public void UseItem(int index)
     {
-        Item item = _inventory[index];
-        if (item == null)
-        {
-            return;
-        }
-        item.UseItem(_character);
+        _inventory.UseAtItem(index,_character);
+        UpdateUI();
     }
 }
