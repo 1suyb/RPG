@@ -52,7 +52,7 @@ public class UIItemTooltip : MonoBehaviour
         position.x -= _rectTransform.sizeDelta.x;
         _rectTransform.position = position;
     }
-    public void OpenUI(ItemData item)
+    public void OpenUI(Item item)
     {
         if(_iconRectTransform == null)
         {
@@ -62,17 +62,17 @@ public class UIItemTooltip : MonoBehaviour
         {
             return;
         }
-        _icon.UpdateSlot(item.Sprite,item.Count);
+        _icon.UpdateSlot(item.ItemData.Sprite,item.Count);
         switch (item.ItemType)
         {
             case ItemType.Equipment :
-                SetEquipText(item);
+                SetEquipText(item.ItemData);
                 break;
             case ItemType.Consume :
-                SetConsumeText(item);
+                SetConsumeText(item.ItemData);
                 break;
             case ItemType.Material :
-                SetMaterialText(item);
+                SetMaterialText(item.ItemData);
                 break;
         }
         SetLayout();

@@ -7,30 +7,26 @@ public class ItemData
     public int ID { get; private set; }
     public int InfoID { get; private set; }
     [JsonIgnore] public ItemInfo ItemInfo { get; private set; }
-    [JsonIgnore] public string Name => ItemInfo.Name;
-    [JsonIgnore] public string Description => ItemInfo.Description;
-    [JsonIgnore] public ItemType ItemType  => ItemInfo.ItemType;
-    [JsonIgnore] public int Price => ItemInfo.Price;
-    [JsonIgnore] public bool Sell => ItemInfo.Sell; 
-    [JsonIgnore] public bool Destory => ItemInfo.Destory;
-    [JsonIgnore] public bool IsStackable => ItemInfo.Stackable;
-    [JsonIgnore] public int MaxCount => ItemInfo.MaxCount;
+    public string Name => ItemInfo.Name;
+    public string Description => ItemInfo.Description;
+    public ItemType ItemType  => ItemInfo.ItemType;
+    public int Price => ItemInfo.Price;
+    public bool Sell => ItemInfo.Sell; 
+    public bool Destory => ItemInfo.Destory;
+    public bool IsStackable => ItemInfo.Stackable;
+    public int MaxCount => ItemInfo.MaxCount;
     
     private int _count;
-    [JsonIgnore] public int Count
-    {
-        get => _count;
-        set => _count = IsStackable ? Mathf.Clamp(value, 0, MaxCount) : 1;
-    }
+    public int Count => _count;
     public Sprite Sprite { get; private set; }
     
-    public bool IsFull => Count >= MaxCount;
+    public bool IsFull => _count >= MaxCount;
     
-    public ItemData(ItemInfo info, int count)
+    public ItemData(ItemInfo info, int count = 1)
     {
         InfoID = info.ID;
         ItemInfo = info;
-        Count = count;
+        _count = count;
         string spritePath = ResourcePath.Sprite.ItemSprite(info.ID.ToString());
         Sprite = ResourceManager.Load<Sprite>(spritePath);
     }
@@ -43,7 +39,7 @@ public class ItemData
         }
         if (IsStackable)
         {
-            Count += count;
+            _count += count;
         }
     }
     
@@ -53,47 +49,12 @@ public class ItemData
         {
             return 0;
         }
-        Count -= count;
-        if (Count <= 0)
+        _count -= count;
+        if (_count <= 0)
         {
-            Count = 0;
+            _count = 0;
         }
-        return Count;
-    }
-}
-
-public class ItemFactory
-{
-    private ItemInfoLoader _itemLoader;
-    
-    private InfoLoader<ItemInfo> itemInfo => _itemLoader.ItemLoader;
-    private InfoLoader<EquipItemInfo> equipItemInfo => _itemLoader.EquipItemLoader;
-    private InfoLoader<ConsumeItemInfo> consumeItemInfo => _itemLoader.ConsumeItemLoader;
-    private InfoLoader<MaterialItemInfo> materialItemInfo => _itemLoader.MaterialItemLoader;
-    
-    
-    public ItemFactory()
-    {
-        _itemLoader = Managers.InfoManager.ItemInfoLoader;
-    }
-    
-    public ItemData CreateItem(int infoID, int count = 0)
-    {
-        ItemInfo info = itemInfo.GetItem(infoID);
-        switch (info.ItemType)
-        {
-            case ItemType.Equipment:
-                EquipItemInfo equipInfo = equipItemInfo.GetItem(info.EquipID);
-                return new EquipData(info,equipInfo, count);
-            case ItemType.Consume:
-                ConsumeItemInfo consumeInfo = consumeItemInfo.GetItem(info.ComsumeID);
-                return new ConsumableData(info,consumeInfo, count);
-            case ItemType.Material:
-                MaterialItemInfo materialInfo = materialItemInfo.GetItem(info.ResourceID);
-                return new MaterialData(info,materialInfo, count);
-            default:
-                return new ItemData(info, count);
-        }
+        return _count;
     }
 }
 

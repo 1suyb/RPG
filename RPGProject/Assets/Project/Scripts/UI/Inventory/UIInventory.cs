@@ -87,13 +87,13 @@ public class UIInventory : UIBase
         }
     }
     
-    public void UpdateUI(ItemData[] datas)
+    public void UpdateUI(Item[] datas)
     {
         for(int i = 0 ; i< _slotList.Count; i++)
         {
             if(datas[i]!=null)
             {
-                _slotList[i].UpdateSlot(datas[i].Sprite, datas[i].Count);
+                _slotList[i].UpdateSlot(datas[i].ItemData.Sprite, datas[i].Count);
             }
             else
             {

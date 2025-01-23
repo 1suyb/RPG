@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 public class Inventory
 {
-    private ItemFactory _itemFactory;
-    private ItemData[] _itemList;
-    public ItemData[] ItemList => _itemList;
+    ItemFactory _itemFactory;
+    private Item[] _itemList;
+    public Item[] ItemList => _itemList;
     private int _maxCount = 80;
 
     private bool _isFull {
@@ -14,7 +14,7 @@ public class Inventory
             return FindEmptyIndex() == -1;
         } 
     }
-    public ItemData this[int index]
+    public Item this[int index]
     {
         get
         {
@@ -28,8 +28,8 @@ public class Inventory
 
     public Inventory()
     {
-        _itemList = new ItemData[_maxCount];
-        _itemFactory = Managers.FactoryManager.ItemFactory;
+        _itemList = new Item[_maxCount];
+        _itemFactory = new ItemFactory();
     }
     
     public int AddItem(ItemInfo item, int count)
@@ -68,7 +68,7 @@ public class Inventory
         {
             return 0;
         }
-        ItemData newItem = _itemFactory.CreateItem(info.ID, remainCount);
+        Item newItem = _itemFactory.CreateItem(info.ID, remainCount);
         int index = FindEmptyIndex();
         _itemList[index] = newItem;
         remainCount -= info.MaxCount;
@@ -85,7 +85,7 @@ public class Inventory
         }
         else
         {
-            ItemData newItem = _itemFactory.CreateItem(info.ID, count);
+            Item newItem = _itemFactory.CreateItem(info.ID, count);
             int index = FindEmptyIndex();
             _itemList[index] = newItem;
             return 0;

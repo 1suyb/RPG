@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Manager;
 using UnityEngine;
 
@@ -28,7 +26,7 @@ public class InventoryController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.A))
         {
-            AddItem(Managers.InfoManager.ItemInfoLoader.ItemLoader.GetItem(12),10);
+            AddItem(Managers.InfoManager.ItemInfoLoader.ItemLoader.GetItem(12),12);
         }
         
     }
@@ -89,12 +87,12 @@ public class InventoryController : MonoBehaviour
         UpdateUI();
     }
 
-    public ItemData GetItemData(int index)
+    public Item GetItemData(int index)
     {
         return _inventory[index];
     }
     
-    private void UpdateUI(ItemData[] datas = null)
+    private void UpdateUI(Item[] datas = null)
     {
         _uiInventory.UpdateUI(datas ?? _inventory.ItemList);
     }

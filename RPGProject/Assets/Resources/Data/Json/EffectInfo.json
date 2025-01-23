@@ -3,41 +3,31 @@
 	{
 		"ID" : 11,
 		"Description" : "물리공격력",
-		"Recovery" : [
-			4
-		],
+		"Effect" : 4,
 		"Percentage" : true
 		},
 	{
 		"ID" : 12,
 		"Description" : "마법공격력",
-		"Recovery" : [
-			6
-		],
+		"Effect" : 6,
 		"Percentage" : true
 		},
 	{
 		"ID" : 13,
 		"Description" : "물리방어력",
-		"Recovery" : [
-			5
-		],
+		"Effect" : 5,
 		"Percentage" : true
 		},
 	{
 		"ID" : 14,
 		"Description" : "마법방어력",
-		"Recovery" : [
-			7
-		],
+		"Effect" : 7,
 		"Percentage" : true
 		},
 	{
 		"ID" : 15,
 		"Description" : "hp회복",
-		"Recovery" : [
-			0
-		],
+		"Effect" : 0,
 		"Percentage" : false
 		}
 	]

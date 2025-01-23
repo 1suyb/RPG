@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class FactoryManager : IManager
 {
-    public ItemFactory ItemFactory { get; private set; }
+    public ItemDataFactory ItemDataFactory { get; private set; }
 
     public void InitOnCreate()
     {
-        ItemFactory = new ItemFactory();
+        ItemDataFactory = new ItemDataFactory();
     }
 
     public void Release()
