@@ -11,6 +11,11 @@ public class EntityAnimationController : MonoBehaviour
             _animator = this.gameObject.GetComponentInDirectChild<Animator>();
         }
     }
+
+    public bool GetBool(int hash)
+    {
+        return _animator.GetBool(hash);
+    }
     public void SetLayerWeight(int layer, float weight)
     {
         _animator.SetLayerWeight(layer, weight);

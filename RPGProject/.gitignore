@@ -12,7 +12,7 @@
 /[Aa]ssets/ArtWorks/
 /[Aa]ssets/Plugins/Demigiant
 /[Aa]ssets/Plugins/ExcelReader
-
+/[Aa]ssets/Plugins/PowerPivot
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
 /[Mm]emoryCaptures/

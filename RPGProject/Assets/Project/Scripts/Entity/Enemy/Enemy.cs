@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, IDamageable, ILoadable
+public class Enemy : Entity
 {
     [field : Header("Status")]
     [field:SerializeField] public StatHandler StatHandler { get; private set; }
@@ -13,13 +11,14 @@ public class Enemy : MonoBehaviour, IDamageable, ILoadable
     [field:SerializeField] public EnemyAI AI { get; private set; }
     
     [field:SerializeField] public AttackData CurrentAttackData { get; private set; }
-    [field:SerializeField] public LayerMask TargetLayer { get; private set; }
-    [field:SerializeField] public Transform Target { get; private set; }
+
     public Stat CurrentStat => StatHandler.CurrentStat;
-    public event Action OnDie;
+    
+    public override event Action OnDie;
     public event Action OnHit;
     public event Action<float> OnHpChange;
     public event Action<float> OnShieldChange;
+    
     
     public void Load(int id)
     {
@@ -49,7 +48,7 @@ public class Enemy : MonoBehaviour, IDamageable, ILoadable
         AI.SetState(EnemyState.Die);
     }
 
-    public void TakeDamage(AttackHandler attackHandler)
+    public override void TakeDamage(AttackHandler attackHandler)
     {
         int damage = attackHandler.CalculateDamage(CurrentStat);
         Debug.Log($"나맞앗어 {damage}");
@@ -58,5 +57,8 @@ public class Enemy : MonoBehaviour, IDamageable, ILoadable
         
     }
 
-
+    public override void ReceiveHealing()
+    {
+        Debug.Log("회복!");
+    }
 }

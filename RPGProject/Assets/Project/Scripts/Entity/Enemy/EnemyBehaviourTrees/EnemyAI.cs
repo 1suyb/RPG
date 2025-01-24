@@ -75,17 +75,8 @@ public class EnemyAI : MonoBehaviour
     protected virtual SequenceBtNode CreateAttackChaseNode()
     {
         
-        InverterDecorator actionWaitNode = new InverterDecorator(new ActionBtNode(NodeRunningWait));
-        
-        SuccessDecorator waitNode = new SuccessDecorator (new SequenceBtNode(new List<BTNode>()
-        {
-            actionWaitNode, // 애니메이션이 실행중이면 대기, 끝나면 다음으로, 애니메이션이 실행되지 않고있으면 올라가기
-            new ActionBtNode(() => CheckState(EnemyState.Attack)), // 애니메이션이 끝났는데 액션상태면
-            new ActionBtNode(() => StopAnimation(_animationController.StopAttack))  // 애니메이션 멈추기
-        }));
         SequenceBtNode actionNode = new SequenceBtNode(new List<BTNode>()
         {
-            waitNode,   // 애니메이션 대기
             new ConditionalDecorator(IsTargetInAttackRange, new ActionBtNode(AttackAction), new ActionBtNode(Chase)),
         });
         return actionNode;
@@ -141,7 +132,9 @@ public class EnemyAI : MonoBehaviour
     
     protected NodeState Chase()
     {
+        _animationController.StopAttack();
         _controller.MoveTowardsTarget(_target,1f);
+        _state = EnemyState.Chase;
         return NodeState.Success;
     }
     
@@ -169,8 +162,10 @@ public class EnemyAI : MonoBehaviour
     
     protected NodeState AttackAction()
     {
+       
         _animationController.Attack(0);
         _nodeRunningState = BTRunningState.InPlay;
+        _state = EnemyState.Attack;
         return NodeState.Success;
     }
 

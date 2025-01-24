@@ -88,6 +88,8 @@ public class UIInventory : UIBase
         _inventoryController.Swap(_heldSlotIndex, to);
     }
 
+    
+    
     #region Tooltip
     
     public void OpenTooltip(int index)
@@ -114,7 +116,11 @@ public class UIInventory : UIBase
         if(slot.IsNull) return;
         _itemActionPopup.OpenActionPopup(slot.GetComponent<RectTransform>(),
             _inventoryController.GetItemData(_heldSlotIndex));
-        _itemActionPopup.AddEvent(new Action[]{()=>_inventoryController.UseItem(_heldSlotIndex)});
+        _itemActionPopup.AddEvent(new Action[]
+        {
+            ()=>_inventoryController.UseItem(_heldSlotIndex),
+            ()=>_inventoryController.DropItem(_heldSlotIndex)
+        });
     }
 
     private void CloseActionPopup()

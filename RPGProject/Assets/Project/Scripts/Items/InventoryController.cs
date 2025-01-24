@@ -77,9 +77,15 @@ public class InventoryController : MonoBehaviour
         }
     }
     
-    public void DropItem(ItemData item)
+    public void DropItem(int index)
     {
-        //_inventory.DropItem(item);
+        Item item = _inventory[index];
+        if (item == null) return;
+        UIManager.Instance.CountPopup("몇개를 버리시겠습니까?",item.Count, (count) => ExcuteDropItem(index, count));
+    }
+    void ExcuteDropItem(int index, int count)
+    {
+        _inventory.RemoveItem(index, count);
         UpdateUI();
     }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -40,14 +41,23 @@ namespace Manager
             return ui;
         }
 
+        public void CountPopup(string message, int count, Action<int> onYes)
+        {
+            UICountPopup popup = Get<UICountPopup>(UIType.CountPopup);
+            popup.Setup(message, count, onYes);
+            Open<UICountPopup>(UIType.CountPopup);
+        }
+        
         public void Toast(string message, float time = 2f)
         {
             
         }
+        
         public void Alert(string message)
         {
             
         }
+        
         public void Confirm(string message, System.Action onConfirm)
         {
             

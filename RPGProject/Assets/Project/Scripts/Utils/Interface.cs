@@ -1,5 +1,8 @@
+using System;
+
 public interface IDamageable
 {
+    public event Action OnDie;
     public void TakeDamage(AttackHandler attackHandler);
 }
 

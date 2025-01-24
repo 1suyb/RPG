@@ -4,6 +4,7 @@ public enum UIType
 {
     MainMenu,
     Inventory,
+    CountPopup
 }
 
 public class UIPath
@@ -13,6 +14,7 @@ public class UIPath
     public static readonly Dictionary<UIType, string> Path = new Dictionary<UIType, string>()
     {
         { UIType.MainMenu, "Prefabs/UI/MainMenu" },
-        { UIType.Inventory, "Prefabs/UI/Inventory" }
+        { UIType.Inventory, "Prefabs/UI/Inventory" },
+        { UIType.CountPopup, "Prefabs/UI/CountPopup" }
     };
 }

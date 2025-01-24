@@ -110,11 +110,14 @@ public class CharacterAnimationController : EntityAnimationController
     
     public void StartAttack(int number)
     {
+        if(GetBool(_isMoveHash))
+            SetLayerWeight(1,1);
         SetInt(_attackNumHash, number);
         SetBool(_isAttackHash, true);
     }
     public void StopAttack()
     {
+        SetLayerWeight(1,0);
         SetBool(_isAttackHash, false);
     }
     
